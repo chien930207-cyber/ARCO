@@ -6,11 +6,9 @@ ARCO 是以繁體中文設計的樂理學習網站。從識譜、節奏、音程
 
 **目前版本：2.1.0**　｜　100 級課程　｜　1,000 題練習　｜　100 個互動實作
 
-![ARCO 練習室介面](docs/release-home.png)
-
 ## 如何開始
 
-開啟 `index.html` 就能使用。單人學習、合成試聽、程度測驗與 AI 對戰不需要 API 金鑰，也不依賴網路。瀏覽器需支援 JavaScript 與 Web Audio。
+單人學習、合成試聽、程度測驗與 AI 對戰不需要 API 金鑰，也不依賴網路。
 
 第一次進入可選擇完成 15 題程度測驗、從第 1 級開始，或先瀏覽課程。正式版預設為正常闖關模式。
 
@@ -61,8 +59,6 @@ AI 陪練有入門、標準與進階三種反應速度及答對傾向。這是�
 
 真人網路對戰採 PeerJS / WebRTC，需連網；首次開房或加入時才載入 PeerJS。公司防火牆、行動網路或 NAT 可能阻止連線，本專案未提供私人 TURN 中繼。四位數代碼只方便邀請，不是密碼；對戰沒有帳號、排名或防作弊後端。
 
-「同瀏覽器雙分頁測試」使用 BroadcastChannel，只供相同瀏覽器、相同網站來源的分頁測試，不是跨裝置模式。詳見 [PeerJS 連線說明](https://peerjs.com/client/faq)。
-
 ## 進度與隱私
 
 進度保存在目前瀏覽器的 `localStorage`，沒有雲端帳號或分析追蹤。保存內容包括課程成績、錯題、實作紀錄、偏好、測驗開放範圍與已見題目編號。不同瀏覽器、裝置、網站來源與本機檔案位置，可能無法共用這些資料。
@@ -72,54 +68,3 @@ AI 陪練有入門、標準與進階三種反應速度及答對傾向。這是�
 設定裡保留「自由選關測試」，可暫時開放 100 級；測試成績與正式成績分開。這不是管理員登入或存取權限，也不會把測試成績轉成正式通過。
 
 網路對戰會讓第三方訊號服務參與連線建立，對手也會收到暱稱與答題資料；WebRTC 連線可能揭露網路位址。請勿使用敏感暱稱。教材與影片連結會開啟外部網站，適用各站的隱私政策。
-
-## 上架 GitHub Pages
-
-本專案已附可直接發布的 `index.html`。**不需要先執行建置、不需要 npm，也不需要自行建立 Actions 工作流程。**
-
-1. 建立 GitHub repository。以 GitHub Free 發布時，使用 Public repository。
-2. 將解壓後的內容上傳至 repository 根目錄。`index.html` 與 `README.md` 應位於同一層，不要只上傳 ZIP，也不要再多包一層資料夾。
-3. 到 **Settings → Pages → Build and deployment**，將 **Source** 設為 **Deploy from a branch**。
-4. 選擇 **main** 與 **/ (root)**，按 **Save**。
-5. 發布完成後，使用 Pages 頁面顯示的 **Visit site** 開啟網站。
-
-之後更新 `index.html` 並提交，GitHub Pages 就會重新發布。`.nojekyll` 用來停用不需要的 Jekyll 處理；即使採分支發布，GitHub 仍會在 Actions 顯示平台產生的部署工作，這是正常情況。
-
-操作依據：[GitHub Pages 發布來源設定](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)、[建立 GitHub Pages 網站](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)。其他排錯請看 [部署與上線檢查](docs/DEPLOYMENT.md)。
-
-## 檔案結構與修改
-
-```text
-index.html              可直接開啟或上架的完整網站
-README.md               專案介紹與使用說明
-.nojekyll               GitHub Pages 靜態發布標記
-favicon.ico             瀏覽器相容圖示
-assets/                 ARCO 標誌、SVG 圖示與觸控圖示
-src/                    樣式、介面、題庫、測驗、實作與對戰原始碼
-docs/                   課綱、更新紀錄、部署說明與測試範圍
-tests/                  結構、程度測驗與瀏覽器測試
-build.py                重建 index.html
-release.json            版本資訊與檔案雜湊
-```
-
-只要使用或上架，可直接使用現成檔案。需要修改介面或功能時，編輯 `src/`，再於專案根目錄執行：
-
-```bash
-python build.py
-python tests/validate_content.py
-node tests/placement.test.cjs
-```
-
-建置使用 Python 3.10 以上的標準函式庫；程度測驗測試使用 Node.js 18 以上。題庫是由 `src/build_curriculum.py` 與 `src/enrich_curriculum.py` 生成的靜態內容，請修改來源腳本，不要只改會被建置覆寫的 `curriculum.json`。
-
-`src/placement.js` 負責 15 題抽樣與建議起點，`src/app.js` 負責解鎖與進度，`src/duel.js` 負責對戰，`src/icons.js` 負責介面圖示。圖示修改需同步更新 `assets/icons.json` 與對應 SVG；建置程式會驗證兩份定義一致。
-
-## 品牌、教材與測試範圍
-
-介面沿用墨藍、霧白與黃銅色。標誌以拱弧與琴弦構成，功能圖示採統一 24 × 24 網格、細線與圓角。字體使用裝置上的系統字體，專案不包含或散布字型檔。
-
-課程是自編路線，不是官方檢定。延伸教材與事實參考包括 [musictheory.net](https://www.musictheory.net/lessons)、[Open Music Theory](https://viva.pressbooks.pub/openmusictheory/) 與 [Ableton Learning Music](https://learningmusic.ableton.com/)。每課另有合成音訊示範；YouTube 連結是主題搜尋，不是逐支審核的影片清單。進階和聲也需結合音樂風格與上下文理解。
-
-已進行題庫結構、隨機抽樣、重複送出、開放邊界、UI、AI 與雙分頁同步測試。瀏覽器測試使用 DOM 注入與測試用記憶體儲存，**不等於已驗證實際網站重整後的原生儲存、瀏覽器下載或跨裝置網路對戰**。發布後請完成 [上線檢查](docs/DEPLOYMENT.md)。完整範圍與限制記錄在 [TESTING.md](docs/TESTING.md)。
-
-本 repository 尚未指定開源授權；公開可見不代表另行授予第三方使用權。第三方服務與教材維持原作者的授權與使用條款。
