@@ -1,0 +1,31 @@
+{
+  "version": "2.1.0",
+  "release_date": "2026-10-02",
+  "levels": 100,
+  "questions": 1000,
+  "workshops": 100,
+  "placement_questions": 15,
+  "placement_tiers": 5,
+  "questions_per_tier": 3,
+  "placement_access_includes_recommended_level": true,
+  "placement_retests_prefer_unseen": true,
+  "icons": 27,
+  "default_test_mode": false,
+  "html_sha256": "b9578fbd97c0450206ae1645ce17a8b684d08e0c18770585d461c3315fe17aee",
+  "content_hash": "b82159a7a9d95664",
+  "tested": {
+    "sampled_exams": 1000,
+    "consecutive_retest_questions_without_repeats": 300,
+    "placement_checks": 7,
+    "browser_checks": 11,
+    "local_duel_checks": 1
+  },
+  "environment": "DOM-injected Chromium with test-only memory storage; dependency-free Node.js placement tests; native BroadcastChannel for two-page local play.",
+  "not_verified": [
+    "Native HTTP/file navigation, page reload, and localStorage persistence",
+    "Native browser download",
+    "GitHub Pages deployment",
+    "Cross-device internet WebRTC",
+    "Calibrated musical ability or real performance grading"
+  ]
+}
