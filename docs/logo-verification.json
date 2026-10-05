@@ -1,0 +1,126 @@
+{
+  "base": "ARCO v2.5.0 complete three-language website",
+  "icon_release": "gold-r3",
+  "built_html_sha256": "a29c91b479455ff6356ffde3ce6f431711ef4a7d06a97fcafb6e419ea6fe5056",
+  "rebuild_byte_identical": true,
+  "changed_executable_script_blocks": [
+    2
+  ],
+  "changes_in_script": "Logo mark SVG contents only; non-logo line icons unchanged",
+  "unchanged_modules": {
+    "src/app.js": "f298afd51948d8822de62b03b1f35b52ad72ecebb0b73d524a7d68ee7c4cbfa7",
+    "src/audio.js": "371e12d5056da5513debe1381c5cf7c70f4ee4e935e457390bfc753edb4dc465",
+    "src/practice.js": "0fd4c657156cb59e75f4eaad955c26eedc94e1c04c5dc8b05c70efcd8cf2318a",
+    "src/placement.js": "9b5be2eaf6c41d4caa92acddfe526075d7d07c822b949ee1d4ef7f1795d03766",
+    "src/duel.js": "f258d6a245c0362f6f7903d78652b05b8b719bf9457c1a3014413dba717cb3e8",
+    "src/duel-engine.js": "2d7ae0cc9ff185ec09ff7f2d765102795ad0cce00f7640bab8873c0b893182dc",
+    "src/duel-bank.json": "40b9fff695dcb61d2ca0a21c17697975269ce774c15c220a413f9bcad997a4db",
+    "src/curriculum.json": "c055e11708ac636f8c9ef646cce091d3b5e194b315956ec780dd6bd2cffeecaf",
+    "src/visual.js": "b2624e62cf414847b1fef1905a609b8c151b459f49f66cd64d5bf0ffe09d1862",
+    "src/i18n.js": "4b627c42b91b9de18b95228af6ba5a5837a9722c6e324e72ca4cd8914eb88e4c",
+    "locales/translations.json": "c9780107d721489567337d6ae9a70d9b99a0d2f5dcfec8758e666a3288b5a815"
+  },
+  "asset_checks": {
+    "icon_release": "gold-r3",
+    "checks": [
+      "no old inline icon links",
+      "all PNG and ICO assets decode",
+      "manifest paths and dimensions match",
+      "opaque maskable icon respects safe zone",
+      "root and project-directory path resolution",
+      "11 learning/data/translation modules hash-identical",
+      "no old in-page brand mark paths"
+    ],
+    "icons": [
+      {
+        "file": "icons/arco-gold-r3.ico",
+        "size": [
+          256,
+          256
+        ],
+        "mode": "RGB"
+      },
+      {
+        "file": "icons/arco-gold-16-r3.png",
+        "size": [
+          16,
+          16
+        ],
+        "mode": "RGB"
+      },
+      {
+        "file": "icons/arco-gold-32-r3.png",
+        "size": [
+          32,
+          32
+        ],
+        "mode": "RGB"
+      },
+      {
+        "file": "icons/arco-gold-48-r3.png",
+        "size": [
+          48,
+          48
+        ],
+        "mode": "RGB"
+      },
+      {
+        "file": "icons/arco-gold-180-r3.png",
+        "size": [
+          180,
+          180
+        ],
+        "mode": "RGB"
+      }
+    ],
+    "unchanged_modules": [
+      "src/app.js",
+      "src/audio.js",
+      "src/practice.js",
+      "src/placement.js",
+      "src/duel.js",
+      "src/duel-engine.js",
+      "src/duel-bank.json",
+      "src/curriculum.json",
+      "src/visual.js",
+      "src/i18n.js",
+      "locales/translations.json"
+    ],
+    "maskable_gold_radius_px": 191.87,
+    "maskable_safe_radius_px": 204.8
+  },
+  "http_requests_passed": 24,
+  "browser_render_cases_passed": 6,
+  "deployment_diagnostic_scenarios": [
+    {
+      "scenario": "complete",
+      "result": "pass",
+      "details": "PASS index.html / gold-r3\n\nPASS /icons/arco-gold-r3.ico\n\nPASS /icons/arco-gold-16-r3.png\n\nPASS /icons/arco-gold-32-r3.png\n\nPASS /icons/arco-gold-48-r3.png\n\nPASS /icons/arco-gold-180-r3.png\n\nPASS any / 192x192\n\nPASS any / 512x512\n\nPASS maskable / 512x512\n\nPASS ARCO / /"
+    },
+    {
+      "scenario": "missing-icon",
+      "result": "fail",
+      "details": "PASS index.html / gold-r3\n\nPASS /icons/arco-gold-r3.ico\n\nCHECK 404 /icons/arco-gold-16-r3.png"
+    },
+    {
+      "scenario": "old-index",
+      "result": "fail",
+      "details": "CHECK The homepage is not the gold-r3 package. Upload index.html too."
+    }
+  ],
+  "core_test_logs": {
+    "placement": "PASS 1000 exams: unique questions, five difficulty tiers, 3 per tier and valid shuffled options\nPASS Sampling still avoids 300 recently exposed question IDs across simulated draws\nPASS Original conservative placement boundaries 1/20/40/60/80/100 remain unchanged\nPASS Repeated and stale submissions cannot advance or answer a different question\nPASS Completed result has no retest button and start() cannot reroll it\nPASS Saved completion restores original chosen answers and question order\nPASS Adoption is idempotent and accepted placement cannot be retaken without initialization\nPASS Legacy completed placement is recognized without inventing historical answers\n",
+    "battle": "PASS 3,000 IDs, 30 per level, four unique options, valid keys and explanations\nPASS All 100 course contents and original 1,000 questions unchanged\nPASS All time boundaries, wrong/timeout streak resets, tier bases and boss multiplier\nPASS 1,000 matches: full/multi/single scope, tier distribution, boss and no duplicate IDs\n",
+    "audio": "PASS suspended context resumes; SFX-off does not mute piano\nPASS interrupted context attempts resume on the next key gesture\nPASS closed context is replaced\nPASS unresolved interruption reports failure instead of silent success\nPASS stop/navigation cancels a key awaiting audio recovery\nPASS volume zero generates no sound\nPASS invalid pitches do not create oscillators\nAudio recovery suite passed\n",
+    "translation": "{\"questions\":4000,\"untranslated\":0,\"optionCollisions\":0,\"badPatterns\":0}\n[]\n"
+  },
+  "test_environment": "Real local HTTP GET checks; separately Chromium DOM injection with fixture-only storage and local asset fulfillment. No real browser-origin navigation due environment policy.",
+  "not_verified": [
+    "Actual GitHub Pages deployment",
+    "Browser chrome native favicon screenshot",
+    "Physical iPhone/Android installation",
+    "Previously installed shortcut icon refresh",
+    "Cross-device WebRTC",
+    "Native browser restart persistence"
+  ]
+}

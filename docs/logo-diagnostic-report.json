@@ -1,0 +1,17 @@
+[
+  {
+    "scenario": "complete",
+    "result": "pass",
+    "details": "PASS index.html / gold-r3\n\nPASS /icons/arco-gold-r3.ico\n\nPASS /icons/arco-gold-16-r3.png\n\nPASS /icons/arco-gold-32-r3.png\n\nPASS /icons/arco-gold-48-r3.png\n\nPASS /icons/arco-gold-180-r3.png\n\nPASS any / 192x192\n\nPASS any / 512x512\n\nPASS maskable / 512x512\n\nPASS ARCO / /"
+  },
+  {
+    "scenario": "missing-icon",
+    "result": "fail",
+    "details": "PASS index.html / gold-r3\n\nPASS /icons/arco-gold-r3.ico\n\nCHECK 404 /icons/arco-gold-16-r3.png"
+  },
+  {
+    "scenario": "old-index",
+    "result": "fail",
+    "details": "CHECK The homepage is not the gold-r3 package. Upload index.html too."
+  }
+]

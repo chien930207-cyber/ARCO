@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "3,000 IDs, 30 per level, four unique options, valid keys and explanations",
+    "All 100 course contents and original 1,000 questions unchanged",
+    "All time boundaries, wrong/timeout streak resets, tier bases and boss multiplier",
+    "1,000 matches: full/multi/single scope, tier distribution, boss and no duplicate IDs"
+  ]
+}

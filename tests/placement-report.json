@@ -1,0 +1,14 @@
+{
+  "version": "2.3.4",
+  "status": "passed",
+  "checks": [
+    "1000 exams: unique questions, five difficulty tiers, 3 per tier and valid shuffled options",
+    "Sampling still avoids 300 recently exposed question IDs across simulated draws",
+    "Original conservative placement boundaries 1/20/40/60/80/100 remain unchanged",
+    "Repeated and stale submissions cannot advance or answer a different question",
+    "Completed result has no retest button and start() cannot reroll it",
+    "Saved completion restores original chosen answers and question order",
+    "Adoption is idempotent and accepted placement cannot be retaken without initialization",
+    "Legacy completed placement is recognized without inventing historical answers"
+  ]
+}

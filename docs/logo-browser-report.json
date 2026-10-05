@@ -1,0 +1,360 @@
+{
+  "mode": "Chromium injected document + test-only storage + local icon request fulfillment",
+  "views": [
+    {
+      "path": "/",
+      "language": "zh-TW",
+      "viewport": 1440,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 98,
+        "y": 20.484375,
+        "width": 45,
+        "height": 46
+      },
+      "errors": []
+    },
+    {
+      "path": "/",
+      "language": "en",
+      "viewport": 390,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 14,
+        "y": 11.984375,
+        "width": 30,
+        "height": 36
+      },
+      "errors": []
+    },
+    {
+      "path": "/",
+      "language": "de",
+      "viewport": 320,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 8,
+        "y": 12,
+        "width": 25,
+        "height": 36
+      },
+      "errors": []
+    },
+    {
+      "path": "/arco/",
+      "language": "zh-TW",
+      "viewport": 1440,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 98,
+        "y": 20.484375,
+        "width": 45,
+        "height": 46
+      },
+      "errors": []
+    },
+    {
+      "path": "/arco/",
+      "language": "en",
+      "viewport": 390,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 14,
+        "y": 11.984375,
+        "width": 30,
+        "height": 36
+      },
+      "errors": []
+    },
+    {
+      "path": "/arco/",
+      "language": "de",
+      "viewport": 320,
+      "decoded_icons": [
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-r3.ico",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-16-r3.png",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-32-r3.png",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-48-r3.png",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-180-r3.png",
+          "width": 180,
+          "height": 180
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-192-r3.png",
+          "width": 192,
+          "height": 192
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-512-r3.png",
+          "width": 512,
+          "height": 512
+        },
+        {
+          "url": "https://arco-preview.test/arco/icons/arco-gold-maskable-512-r3.png",
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "horizontal_overflow": false,
+      "header_logo_box": {
+        "x": 8,
+        "y": 12,
+        "width": 25,
+        "height": 36
+      },
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "icon_requests": [
+    "/arco/icons/arco-gold-16-r3.png",
+    "/arco/icons/arco-gold-180-r3.png",
+    "/arco/icons/arco-gold-192-r3.png",
+    "/arco/icons/arco-gold-32-r3.png",
+    "/arco/icons/arco-gold-48-r3.png",
+    "/arco/icons/arco-gold-512-r3.png",
+    "/arco/icons/arco-gold-maskable-512-r3.png",
+    "/arco/icons/arco-gold-r3.ico",
+    "/icons/arco-gold-16-r3.png",
+    "/icons/arco-gold-180-r3.png",
+    "/icons/arco-gold-192-r3.png",
+    "/icons/arco-gold-32-r3.png",
+    "/icons/arco-gold-48-r3.png",
+    "/icons/arco-gold-512-r3.png",
+    "/icons/arco-gold-maskable-512-r3.png",
+    "/icons/arco-gold-r3.ico"
+  ],
+  "limitations": [
+    "Native browser navigation blocked by environment policy",
+    "No live GitHub Pages deployment",
+    "No actual iOS/Android installation",
+    "Existing shortcut icon-cache refresh untested"
+  ]
+}

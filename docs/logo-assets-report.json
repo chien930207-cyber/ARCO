@@ -1,0 +1,69 @@
+{
+  "icon_release": "gold-r3",
+  "checks": [
+    "no old inline icon links",
+    "all PNG and ICO assets decode",
+    "manifest paths and dimensions match",
+    "opaque maskable icon respects safe zone",
+    "root and project-directory path resolution",
+    "11 learning/data/translation modules hash-identical",
+    "no old in-page brand mark paths"
+  ],
+  "icons": [
+    {
+      "file": "icons/arco-gold-r3.ico",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "icons/arco-gold-16-r3.png",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "icons/arco-gold-32-r3.png",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "icons/arco-gold-48-r3.png",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "icons/arco-gold-180-r3.png",
+      "size": [
+        180,
+        180
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "unchanged_modules": [
+    "src/app.js",
+    "src/audio.js",
+    "src/practice.js",
+    "src/placement.js",
+    "src/duel.js",
+    "src/duel-engine.js",
+    "src/duel-bank.json",
+    "src/curriculum.json",
+    "src/visual.js",
+    "src/i18n.js",
+    "locales/translations.json"
+  ],
+  "maskable_gold_radius_px": 191.87,
+  "maskable_safe_radius_px": 204.8
+}

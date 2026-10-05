@@ -1,0 +1,18 @@
+{
+  "base": "ARCO v2.5.0",
+  "icon_release": "gold-r3",
+  "static_marks_replaced": 1,
+  "unchanged_sha256": {
+    "src/app.js": "f298afd51948d8822de62b03b1f35b52ad72ecebb0b73d524a7d68ee7c4cbfa7",
+    "src/audio.js": "371e12d5056da5513debe1381c5cf7c70f4ee4e935e457390bfc753edb4dc465",
+    "src/practice.js": "0fd4c657156cb59e75f4eaad955c26eedc94e1c04c5dc8b05c70efcd8cf2318a",
+    "src/placement.js": "9b5be2eaf6c41d4caa92acddfe526075d7d07c822b949ee1d4ef7f1795d03766",
+    "src/duel.js": "f258d6a245c0362f6f7903d78652b05b8b719bf9457c1a3014413dba717cb3e8",
+    "src/duel-engine.js": "2d7ae0cc9ff185ec09ff7f2d765102795ad0cce00f7640bab8873c0b893182dc",
+    "src/duel-bank.json": "40b9fff695dcb61d2ca0a21c17697975269ce774c15c220a413f9bcad997a4db",
+    "src/curriculum.json": "c055e11708ac636f8c9ef646cce091d3b5e194b315956ec780dd6bd2cffeecaf",
+    "src/visual.js": "b2624e62cf414847b1fef1905a609b8c151b459f49f66cd64d5bf0ffe09d1862",
+    "src/i18n.js": "4b627c42b91b9de18b95228af6ba5a5837a9722c6e324e72ca4cd8914eb88e4c",
+    "locales/translations.json": "c9780107d721489567337d6ae9a70d9b99a0d2f5dcfec8758e666a3288b5a815"
+  }
+}
