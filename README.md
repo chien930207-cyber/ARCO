@@ -1,10 +1,6 @@
 # ARCO｜樂理練習室
 
-> 本包已整合新 Logo。請一起上傳 `index.html`、`icons/` 與 `site.webmanifest`。[上架說明](UPLOAD.md)｜[圖示檢查](logo-check.html)
-
 **讓觀念，成為聽得懂的音樂。**
-
-[English](README.en.md) | [Deutsch](README.de.md)
 
 ARCO 是一個樂理學習網站。從識譜、節奏、音程與和弦，逐步練到調式、編曲與進階和聲。每課先理解觀念，再透過試聽、互動實作與演奏任務，把知識用出來。
 
@@ -86,17 +82,3 @@ AI 為本機規則式電腦對手，不使用生成式模型，也不會根據�
 發現題目有誤或操作異常時，請附上課程級數、題目內容、使用語言與操作步驟；截圖也能幫助釐清問題。
 
 網站場景為 AI 生成圖像，不代表實際場地。本專案尚未指定開源授權；第三方教材與元件維持各自的授權條款。
-
-## 開發與驗證
-
-首頁為已建置的 `index.html`，可直接更新原網站。源碼位於 `src/`，譯文位於 `locales/translations.json`。
-
-```sh
-python build.py
-node tests/translation.test.cjs
-node tests/placement.test.cjs
-node tests/battle_engine.test.cjs
-node tests/audio_recovery.test.cjs
-```
-
-[翻譯與測試範圍](docs/LANGUAGES.md)。譯文已完成內容覆蓋檢查，但仍歡迎回報用詞或文意問題。
