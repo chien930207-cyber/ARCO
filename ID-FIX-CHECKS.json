@@ -1,0 +1,262 @@
+{
+  "identity": [
+    {
+      "name": "Old identical dot ids collide across two project directories",
+      "pass": true
+    },
+    {
+      "name": "Corrected ids separate apps on one origin",
+      "pass": true
+    },
+    {
+      "name": "VOCAB identity exactly /vocab-clash",
+      "pass": true
+    },
+    {
+      "name": "ARCO identity exactly /arco",
+      "pass": true
+    },
+    {
+      "name": "VOCAB start remains in its project directory",
+      "pass": true
+    },
+    {
+      "name": "ARCO start remains in its project directory",
+      "pass": true
+    },
+    {
+      "name": "App identity does not change with manifest cache query",
+      "pass": true
+    },
+    {
+      "name": "Directory moves preserve selected application identity",
+      "pass": true
+    },
+    {
+      "name": "Same app label on distinct origins is distinct",
+      "pass": true
+    },
+    {
+      "name": "Missing id defaults to start URL, not root",
+      "pass": true
+    },
+    {
+      "name": "Cross-origin id falls back to start",
+      "pass": true
+    },
+    {
+      "name": "Hash cannot distinguish apps",
+      "pass": true
+    },
+    {
+      "name": "VOCAB scope is its own folder not the origin",
+      "pass": true
+    },
+    {
+      "name": "ARCO scope is its own folder not the origin",
+      "pass": true
+    },
+    {
+      "name": "Both remain standalone",
+      "pass": true
+    }
+  ],
+  "runtime": {
+    "http": [
+      {
+        "path": "ARCO/index.html",
+        "status": 200,
+        "bytes": 6413964,
+        "pass": true
+      },
+      {
+        "path": "ARCO/site.webmanifest",
+        "status": 200,
+        "bytes": 693,
+        "pass": true
+      },
+      {
+        "path": "ARCO/logo-check.html",
+        "status": 200,
+        "bytes": 6470,
+        "pass": true
+      },
+      {
+        "path": "ARCO/icons/arco-gold-192-r3.png",
+        "status": 200,
+        "bytes": 32582,
+        "pass": true
+      },
+      {
+        "path": "ARCO/icons/arco-gold-512-r3.png",
+        "status": 200,
+        "bytes": 239780,
+        "pass": true
+      },
+      {
+        "path": "ARCO/icons/arco-gold-maskable-512-r3.png",
+        "status": 200,
+        "bytes": 154899,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/index.html",
+        "status": 200,
+        "bytes": 1952783,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/site.webmanifest",
+        "status": 200,
+        "bytes": 811,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/logo-check.html",
+        "status": 200,
+        "bytes": 7481,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/icons/vocab-app-r2-192.png",
+        "status": 200,
+        "bytes": 62056,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/icons/vocab-app-r2-512.png",
+        "status": 200,
+        "bytes": 292480,
+        "pass": true
+      },
+      {
+        "path": "VOCAB/icons/vocab-maskable-r2-512.png",
+        "status": 200,
+        "bytes": 123348,
+        "pass": true
+      }
+    ],
+    "browser": [
+      {
+        "app": "VOCAB",
+        "checker_success": false,
+        "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:46027/VOCAB/logo-check.html\nCall log:\n  - navigating to \"http://127.0.0.1:46027/VOCAB/logo-check.html\", waiting until \"domcontentloaded\"\n"
+      }
+    ],
+    "os_installation_tested": false
+  },
+  "syntax": [
+    {
+      "app": "VOCAB",
+      "script": 0,
+      "pass": true
+    },
+    {
+      "app": "ARCO",
+      "script": 0,
+      "pass": true
+    }
+  ],
+  "preservation": [
+    {
+      "input": "VocabClash-App-Ready.zip",
+      "old_id": "./",
+      "new_id": "/vocab-clash",
+      "other_manifest_fields_unchanged": true,
+      "all_index_scripts_unchanged": true,
+      "script_count": 15,
+      "icon_file_count_unchanged": 12,
+      "changed_existing_files": [
+        "APP-SETUP.md",
+        "APP-TEST-REPORT.md",
+        "index.html",
+        "logo-check.html",
+        "site.webmanifest"
+      ],
+      "manifest": {
+        "id": "/vocab-clash",
+        "name": "VOCAB CLASH",
+        "short_name": "Vocab Clash",
+        "lang": "zh-Hant-TW",
+        "description": "把背單字，變成一場遊戲。",
+        "start_url": "./",
+        "scope": "./",
+        "display": "standalone",
+        "background_color": "#060b20",
+        "theme_color": "#060b20",
+        "icons": [
+          {
+            "src": "./icons/vocab-app-r2-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "./icons/vocab-app-r2-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "./icons/vocab-maskable-r2-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+          }
+        ],
+        "prefer_related_applications": false,
+        "categories": [
+          "education",
+          "games"
+        ]
+      },
+      "source_sha256": "977e48aecbf5047f4381891b23746d08dbe9f60db32f7a6563407a93f6034268"
+    },
+    {
+      "input": "ARCO-v2.5.0-Logo-Ready.zip",
+      "old_id": "./",
+      "new_id": "/arco",
+      "other_manifest_fields_unchanged": true,
+      "all_index_scripts_unchanged": true,
+      "script_count": 12,
+      "icon_file_count_unchanged": 23,
+      "changed_existing_files": [
+        "logo-check.html",
+        "site.webmanifest"
+      ],
+      "manifest": {
+        "name": "ARCO",
+        "short_name": "ARCO",
+        "lang": "zh-Hant-TW",
+        "description": "Music theory into practice.",
+        "start_url": "./",
+        "scope": "./",
+        "display": "standalone",
+        "background_color": "#0B1020",
+        "theme_color": "#0B1020",
+        "icons": [
+          {
+            "src": "./icons/arco-gold-192-r3.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "./icons/arco-gold-512-r3.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "./icons/arco-gold-maskable-512-r3.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+          }
+        ],
+        "id": "/arco"
+      },
+      "source_sha256": "ebfd7f4dc1b90b58f08d597e6edf77273902fa3a18674edca6a3b690b3fd89f3"
+    }
+  ]
+}
