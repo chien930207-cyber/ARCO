@@ -2557,11 +2557,13 @@ window.ArcoMusic=(()=>{
  queue();return {stopMilestone(){if(cue?.kind==='chapter-clear'||cueRequest?.kind==='chapter-clear'){cancelCue();queue();}},settingsMarkup,battleControlMarkup,reset,tracks:TRACKS.map(t=>({...t})),snapshot:()=>({preferences:{...prefs},status,channel,reason:reason(),unlocked,contextState:ctx?.state||'uncreated',activeSources:[...voices.values()].filter(v=>v.playing&&!v.audio.paused).length,track:current?.track.id||null,position:current?.audio.currentTime||0,resultSound:cueStatus,resultEvents:playedCues.size})};
 })();</script>
 <script id="arco-engagement-js">'use strict';
-/** Production: ten-level milestones; alternating foreground-use share / app reminders. */
+/** Production: ten-level milestones; daily share at 5 min and app at 10 min.
+ * Dates follow the device's local calendar. Only reminder bookkeeping changes.
+ */
 window.ArcoEngagement=(()=>{
  const A=window.ARCO,STORE=window.ArcoStorage,KEY='arco.engagement.v1';
- const SESSION='arco.engagement.session.v1';
- const LIMIT=10*60*1000,ID='eg-feature-dialog';
+ const DAILY='arco.engagement.daily.v1',LOCK=DAILY+'.lock';
+ const SHARE_AT=5*60*1000,INSTALL_AT=10*60*1000,LIMIT=INSTALL_AT,ID='eg-feature-dialog';
  const COOLDOWN=60000;
  const TEXT={
   "zh-TW": {
@@ -2639,27 +2641,85 @@ window.ArcoEngagement=(()=>{
  const allCompleted=()=>Array.from({length:10},(_,i)=>(i+1)*10).filter(complete);
  let record=null;try{record=JSON.parse(STORE.getItem(KEY));}catch(_){}
  let state={version:1,seen:Array.isArray(record?.seen)?record.seen.filter(validEnd):allCompleted(),pending:Array.isArray(record?.pending)?record.pending.filter(p=>validEnd(p.end)&&typeof p.token==='string'&&complete(p.end)).slice(0,10):[],shareUrl:typeof record?.shareUrl==='string'?record.shareUrl:''};
- const freshSession=()=>({version:2,elapsed:0,next:'share',count:0,prompted:false});
- let session=freshSession();
- try{
-  const saved=JSON.parse(sessionStorage.getItem(SESSION));
-  if(saved&&Number.isFinite(saved.elapsed)){
-   if(saved.version===2){
-    session={version:2,elapsed:Math.max(0,Math.min(LIMIT,saved.elapsed)),
-     next:saved.next==='install'?'install':'share',
-     count:Number.isInteger(saved.count)&&saved.count>=0?saved.count:0,
-     prompted:saved.prompted===true};
-   }else{
-    // A previously shown share invitation is followed by an install invitation.
-    session={version:2,elapsed:saved.prompted?0:Math.max(0,Math.min(LIMIT,saved.elapsed)),
-     next:saved.prompted?'install':'share',count:saved.prompted?1:0,prompted:saved.prompted===true};
+ // Keep daily reminders separate from curriculum progress and milestone history.
+ // The old per-tab timer has no calendar date, so it is deliberately not imported.
+ const localDay=(time=Date.now())=>{const d=new Date(time);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+ const dayStart=time=>{const d=new Date(time);return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();};
+ const freshDaily=time=>({version:1,date:localDay(time),elapsed:0,shareShown:false,installShown:false,installSkipped:false,countedUntil:0,notBefore:0,activeOwner:'',activeUntil:0});
+ const OWNER=typeof crypto.randomUUID==='function'?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint32Array(4))).join('-');
+ let dailyCache=freshDaily(Date.now()),lastStored='',generation=0,storageFailed=false;
+ let lastLocale=locale();
+ let last=performance.now(),lastWall=Date.now(),wasVisible=!document.hidden,disposed=false,cooldown=0,modal=null,returnFocus=null,shareBusy=false,justOpenedAt=0;
+ function save(){try{STORE.setItem(KEY,JSON.stringify(state));}catch(_){} }
+ function readDaily(now=Date.now()){
+  let value=null;
+  try{const raw=STORE.getItem(DAILY);lastStored=raw||'';value=storageFailed?dailyCache:(raw?JSON.parse(raw):null);}catch(_){value=dailyCache;}
+  const result=freshDaily(now);
+  if(value?.version===1&&value.date===result.date){
+   result.elapsed=Number.isFinite(value.elapsed)?Math.max(0,Math.min(LIMIT,value.elapsed)):0;
+   result.shareShown=value.shareShown===true;
+   result.installShown=value.installShown===true;
+   result.installSkipped=value.installSkipped===true;
+   result.countedUntil=Number.isFinite(value.countedUntil)?Math.max(0,Math.min(now,value.countedUntil)):0;
+   // Discard corrupt/far-future locks; changing the device clock cannot stall reminders.
+   result.notBefore=Number.isFinite(value.notBefore)&&value.notBefore<=now+COOLDOWN?Math.max(0,value.notBefore):0;
+   if(typeof value.activeOwner==='string'&&value.activeUntil>now&&value.activeUntil<=now+10000){
+    result.activeOwner=value.activeOwner.slice(0,100);result.activeUntil=value.activeUntil;
    }
   }
- }catch(_){}
- let lastLocale=locale();
- let last=performance.now(),wasVisible=!document.hidden,disposed=false,cooldown=0,modal=null,returnFocus=null,lastSave=0,shareBusy=false,justOpenedAt=0;
- function save(){try{STORE.setItem(KEY,JSON.stringify(state));}catch(_){} }
- function saveSession(){try{sessionStorage.setItem(SESSION,JSON.stringify(session));}catch(_){} }
+  dailyCache=result;return result;
+ }
+ function writeDaily(value){
+  dailyCache=value;const raw=JSON.stringify(value);
+  if(raw===lastStored)return;
+  try{STORE.setItem(DAILY,raw);lastStored=raw;storageFailed=false;}catch(_){storageFailed=true;/* Keep this visit functional when storage is blocked. */}
+ }
+ // Serialize read/modify/write across tabs. All callbacks are synchronous and short.
+ // Older browsers use a brief verified storage lease instead of holding a UI lock.
+ function withDailyLock(job){
+  const epoch=generation;
+  const run=()=>{if(epoch===generation)job();};
+  const fallback=()=>{
+   const now=Date.now();let persistent=true;
+   try{
+    const held=JSON.parse(STORE.getItem(LOCK));
+    if(held?.owner!==OWNER&&held?.until>now&&held.until<=now+3000)return;
+    STORE.setItem(LOCK,JSON.stringify({owner:OWNER,until:now+2500}));
+   }catch(_){persistent=false;}
+   if(!persistent){run();return;}
+   setTimeout(()=>{
+    let owns=false;
+    try{owns=JSON.parse(STORE.getItem(LOCK))?.owner===OWNER;}catch(_){}
+    if(!owns)return;
+    try{run();}finally{try{if(JSON.parse(STORE.getItem(LOCK))?.owner===OWNER)STORE.removeItem(LOCK);}catch(_){}}
+   },35);
+  };
+  if(navigator.locks?.request&&window.isSecureContext){
+   let entered=false;
+   navigator.locks.request(LOCK,()=>{entered=true;run();}).catch(()=>{if(!entered)fallback();});
+  }else fallback();
+ }
+ function updateDaily(interval=null,runPump=false){
+  withDailyLock(()=>{
+   const now=Date.now(),daily=readDaily(now);
+   const elsewhere=daily.activeOwner&&daily.activeOwner!==OWNER&&daily.activeUntil>now;
+   if(interval?.allowed&&!elsewhere&&localDay(interval.end)===daily.date&&daily.elapsed<LIMIT){
+    const end=Math.min(now,interval.end),start=Math.max(dayStart(now),interval.start,daily.countedUntil);
+    // Union of foreground intervals: two visible tabs never count the same second twice.
+    daily.elapsed=Math.min(LIMIT,daily.elapsed+Math.max(0,end-start));
+    daily.countedUntil=Math.max(daily.countedUntil,end);
+   }
+   if(reminderOpen()&&!document.hidden&&!disposed){
+    daily.activeOwner=OWNER;daily.activeUntil=now+8000;
+   }else if(daily.activeOwner===OWNER){
+    daily.activeOwner='';daily.activeUntil=0;
+    daily.notBefore=Math.max(daily.notBefore,now+COOLDOWN);
+   }
+   if(runPump&&!disposed&&!elsewhere)pumpDaily(daily,now);
+   writeDaily(daily);
+  });
+ }
+ function saveSession(){updateDaily();}
  function validUrl(text){try{const u=new URL(text);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!u.hostname||/^(localhost|127\.|\[?::1\]?)/i.test(u.hostname))return '';u.hash='';u.search='';return u.href;}catch(_){return '';}}
  function defaultUrl(){if(!/^https?:$/.test(location.protocol))return '';return validUrl(new URL('./',location.href).href);}
  function publicUrl(){return defaultUrl()||validUrl(state.shareUrl);}
@@ -2688,12 +2748,8 @@ window.ArcoEngagement=(()=>{
  function open(data){if(busy())return false;modal={...data,route:location.hash};returnFocus=document.activeElement;shareBusy=false;renderModal();const d=document.getElementById(ID);d.showModal();d.querySelector('[autofocus]')?.focus({preventScroll:true});justOpenedAt=performance.now();if(data.kind==='milestone')sound();return true;}
  function close(){if(!modal)return;const was=modal;modal=null;shareBusy=false;document.getElementById(ID)?.close();if(was.kind==='milestone')window.ArcoMusic?.stopMilestone?.();cooldown=performance.now()+COOLDOWN;last=performance.now();saveSession();if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});}
  function reminderOpen(){return modal?.kind==='share'||!!document.getElementById('arco-install-dialog')?.open;}
- function advanceReminder(kind,shown){
-  session.elapsed=0;session.next=kind==='share'?'install':'share';
-  if(shown){session.count++;if(kind==='share')session.prompted=true;}
-  last=performance.now();saveSession();
- }
- function pump(){
+ function pump(){updateDaily(null,true);}
+ function pumpDaily(daily,now){
   if(disposed||busy())return;
   const pending=state.pending.find(p=>!state.seen.includes(p.end)&&complete(p.end));
   if(pending){
@@ -2702,24 +2758,30 @@ window.ArcoEngagement=(()=>{
    }
    return;
   }
-  if(session.elapsed<LIMIT||performance.now()<cooldown)return;
-  const kind=session.next;
+  if(performance.now()<cooldown||now<daily.notBefore)return;
+  const kind=!daily.shareShown&&daily.elapsed>=SHARE_AT?'share':
+   daily.shareShown&&!daily.installShown&&!daily.installSkipped&&daily.elapsed>=INSTALL_AT?'install':'';
+  if(!kind)return;
   if(kind==='install'){
-   const install=window.ArcoInstall;
-   if(!install)return;
-   // An installed/standalone app skips its install slot without substituting a second share prompt.
-   if(!install.available()){advanceReminder(kind,false);return;}
-   if(install.open({automatic:true})===true)advanceReminder(kind,true);
-  }else if(open({kind:'share'}))advanceReminder(kind,true);
+   const install=window.ArcoInstall;if(!install)return;
+   if(!install.available()){daily.installSkipped=true;return;}
+  }
+  // Reserve before opening so another tab/reload cannot repeat today's invitation.
+  const field=kind==='share'?'shareShown':'installShown';
+  daily[field]=true;daily.notBefore=now+COOLDOWN;
+  daily.activeOwner=OWNER;daily.activeUntil=now+8000;writeDaily(daily);
+  let shown=false;
+  try{shown=kind==='share'?open({kind:'share'}):window.ArcoInstall.open({automatic:true})===true;}
+  catch(_){if(kind==='share'&&!document.getElementById(ID)?.open)modal=null;}
+  if(!shown){daily[field]=false;daily.activeOwner='';daily.activeUntil=0;daily.notBefore=0;}
  }
  function onCourseResult({level,score,token}){const end=Math.ceil(level/10)*10;if(score<8||!validEnd(end)||!complete(end)||state.seen.includes(end)||state.pending.some(p=>p.end===end))return false;state.pending.push({end,token:String(token)});save();setTimeout(pump,120);return true;}
  function tick(runPump=true){
-  const now=performance.now(),delta=Math.max(0,Math.min(5000,now-last));
-  // Time in another tab, or spent leaving an invitation open, is not learning time.
-  if(wasVisible&&!disposed&&!reminderOpen())session.elapsed=Math.min(LIMIT,session.elapsed+delta);
-  last=now;wasVisible=!document.hidden;
-  if(now-lastSave>=5000){saveSession();lastSave=now;}
-  if(runPump)pump();
+  const clock=performance.now(),wall=Date.now();
+  const delta=Math.max(0,Math.min(5000,clock-last,wall-lastWall));
+  const interval={start:wall-delta,end:wall,allowed:wasVisible&&!disposed&&!reminderOpen()&&!window.ArcoSplash?.active};
+  last=clock;lastWall=wall;wasVisible=!document.hidden;
+  updateDaily(interval,runPump);
  }
  function notifyBusy(){A.notify(tr('busy'));}
  function status(text){const e=document.getElementById('eg-status');if(e)e.textContent=text;}
@@ -2783,7 +2845,7 @@ window.ArcoEngagement=(()=>{
    if(err?.name==='AbortError')status(tr('cancelled'));else await copyShare(url,message);
   }finally{shareBusy=false;if(button?.isConnected)button.disabled=false;}
  }
- function reset(){close();state={version:1,seen:[],pending:[],shareUrl:''};session=freshSession();last=performance.now();wasVisible=!document.hidden;cooldown=0;save();saveSession();}
+ function reset(){close();generation++;state={version:1,seen:[],pending:[],shareUrl:''};dailyCache=freshDaily(Date.now());lastStored='';try{STORE.removeItem(DAILY);STORE.removeItem(LOCK);}catch(_){}last=performance.now();lastWall=Date.now();wasVisible=!document.hidden;cooldown=0;save();saveSession();}
  const d=document.createElement('dialog');d.id=ID;d.dataset.noTranslate='';d.className='eg-dialog';document.body.append(d);
  // No persistent feature panel, app button, or NEW badge. Invitations are timed only.
  document.addEventListener('click',e=>{
@@ -2809,14 +2871,21 @@ window.ArcoEngagement=(()=>{
  document.addEventListener('visibilitychange',()=>{tick();if(document.hidden)window.ArcoMusic?.stopMilestone?.();saveSession();});
  document.addEventListener('arco:localized',()=>{if(locale()===lastLocale)return;lastLocale=locale();if(modal){renderModal();document.querySelector('#'+ID+' [autofocus]')?.focus({preventScroll:true});}});
  document.addEventListener('arco:feature-reset',reset);
- window.addEventListener('pagehide',()=>{tick(false);disposed=true;saveSession();});window.addEventListener('pageshow',()=>{disposed=false;last=performance.now();wasVisible=!document.hidden;});
+ window.addEventListener('pagehide',()=>{tick(false);disposed=true;saveSession();});window.addEventListener('pageshow',()=>{disposed=false;last=performance.now();lastWall=Date.now();wasVisible=!document.hidden;saveSession();});
  window.addEventListener('hashchange',()=>{if(modal&&modal.route!==location.hash)close();setTimeout(pump,200);});
- STORE.addEventListener('storage',e=>{if(e.key!==KEY||!e.newValue)return;try{const v=JSON.parse(e.newValue);if(Array.isArray(v.seen))state.seen=[...new Set([...state.seen,...v.seen.filter(validEnd)])];}catch(_){}});
+ STORE.addEventListener('storage',e=>{if(e.key===DAILY){readDaily();return;}if(e.key!==KEY||!e.newValue)return;try{const v=JSON.parse(e.newValue);if(Array.isArray(v.seen))state.seen=[...new Set([...state.seen,...v.seen.filter(validEnd)])];}catch(_){}});
  document.addEventListener('arco:install-closed',()=>{
-  last=performance.now();cooldown=performance.now()+COOLDOWN;saveSession();
+  last=performance.now();lastWall=Date.now();cooldown=performance.now()+COOLDOWN;saveSession();
  });
  setInterval(tick,1000);save();saveSession();
- return {onCourseResult,snapshot:()=>({seen:[...state.seen],pending:state.pending.map(x=>({...x})),foregroundMs:session.elapsed,shareShown:session.prompted,thresholdMs:LIMIT,nextReminder:session.next,remindersShown:session.count,sessionKey:SESSION,modal:modal?{...modal}:null,shareUrl:publicUrl()}),reset};
+ return {onCourseResult,snapshot:()=>{
+  const daily=readDaily(),next=!daily.shareShown?'share':!daily.installShown&&!daily.installSkipped?'install':null;
+  return {seen:[...state.seen],pending:state.pending.map(x=>({...x})),dailyDate:daily.date,
+   foregroundMs:daily.elapsed,shareShown:daily.shareShown,installShown:daily.installShown,installSkipped:daily.installSkipped,
+   thresholdMs:next==='share'?SHARE_AT:next==='install'?INSTALL_AT:null,thresholdsMs:{share:SHARE_AT,install:INSTALL_AT},
+   nextReminder:next,remindersShown:Number(daily.shareShown)+Number(daily.installShown),dailyKey:DAILY,
+   modal:modal?{...modal}:null,shareUrl:publicUrl()};
+ },reset};
 })();
 </script>
 <script id="arco-dialog-refresh">'use strict';
