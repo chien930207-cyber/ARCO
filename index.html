@@ -2576,13 +2576,15 @@ window.ArcoEngagement=(()=>{
     "shareText": "\ud83d\udce2\u63a8\u85a6\u4f60\u4e00\u500b\u6a02\u7406\u6559\u5b78\u7db2\u7ad9\uff1aARCO\n100 \u7d1a\u5faa\u5e8f\u6f38\u9032\u7684\u8ab2\u7a0b\uff0c\u642d\u914d\u5716\u89e3\u8207\u95d6\u95dc\u7df4\u7fd2\uff0c\u5e36\u4f60\u4e00\u6b65\u6b65\u4eab\u53d7\u6a02\u7406\u7684\u4e16\u754c\u3002\n\n\u96f6\u57fa\u790e\u4e5f\u80fd\u958b\u59cb\uff0c\u4e00\u8d77\u4f86\u8a66\u8a66\ud83c\udfb5\ud83c\udfb6",
     "url": "ARCO \u6b63\u5f0f\u7db2\u5740",
     "invalidUrl": "\u8acb\u8f38\u5165\u6709\u6548\u7684 http \u6216 https \u7db2\u5740\u3002",
-    "copied": "\u5df2\u8907\u88fd\u4ecb\u7d39\u8207\u7db2\u5740\uff0c\u53ef\u8cbc\u5230 LINE \u6216\u8a0a\u606f\u3002",
+    "copied": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u7db2\u5740\u3002",
     "shared": "\u5df2\u4ea4\u7d66\u7cfb\u7d71\u5206\u4eab\u3002",
     "cancelled": "\u5df2\u53d6\u6d88\u5206\u4eab\u3002",
     "manual": "\u8acb\u624b\u52d5\u8907\u88fd\u4e0b\u65b9\u5df2\u9078\u53d6\u7684\u5206\u4eab\u6587\u5b57\u3002",
     "busy": "\u8acb\u5148\u5b8c\u6210\u6216\u96e2\u958b\u76ee\u524d\u7684\u6e2c\u9a57\u3001\u5c0d\u6230\u6216\u8996\u7a97\u3002",
     "aiReady": "AI \u984c\u5eab\u5df2\u8a2d\u70ba\u7b2c {from}\u2013{to} \u7d1a\uff0c\u9078\u4e00\u4f4d\u5c0d\u624b\u5373\u53ef\u3002",
-    "sharePreview": "\u9810\u89bd\u5206\u4eab\u6587\u5b57"
+    "sharePreview": "\u9810\u89bd\u5206\u4eab\u6587\u5b57",
+    "shareLinkLabel": "\u99ac\u4e0a\u9ad4\u9a57arco",
+    "copiedRich": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u6587\u5b57\u8d85\u9023\u7d50\u3002"
   },
   "en": {
     "range": "Levels {from}\u2013{to}",
@@ -2596,13 +2598,15 @@ window.ArcoEngagement=(()=>{
     "shareText": "\ud83d\udce2Here is a music theory learning website to try: ARCO\n100 step-by-step levels with diagrams and quiz challenges help you explore the world of music theory at your own pace.\n\nNo experience needed. Come give it a try\ud83c\udfb5\ud83c\udfb6",
     "url": "Public ARCO website",
     "invalidUrl": "Enter a valid http or https website URL.",
-    "copied": "Introduction and link copied. Paste them into a message.",
+    "copied": "Share message and URL copied.",
     "shared": "Handed over to system sharing.",
     "cancelled": "Sharing cancelled.",
     "manual": "Copy the selected share message below.",
     "busy": "Finish or leave the current quiz, duel or dialog first.",
     "aiReady": "AI questions are set to levels {from}\u2013{to}. Choose an opponent.",
-    "sharePreview": "Preview share message"
+    "sharePreview": "Preview share message",
+    "shareLinkLabel": "Try ARCO now",
+    "copiedRich": "Share message and text hyperlink copied."
   },
   "de": {
     "range": "Stufen {from}\u2013{to}",
@@ -2616,13 +2620,15 @@ window.ArcoEngagement=(()=>{
     "shareText": "\ud83d\udce2Entdecke ARCO, eine Website zum Lernen von Musiktheorie\n100 aufeinander aufbauende Stufen mit Schaubildern und Quizaufgaben begleiten dich Schritt f\u00fcr Schritt durch die Welt der Musiktheorie.\n\nAuch ohne Vorkenntnisse kannst du loslegen. Probier es aus\ud83c\udfb5\ud83c\udfb6",
     "url": "\u00d6ffentliche ARCO-Website",
     "invalidUrl": "Eine g\u00fcltige http- oder https-URL eingeben.",
-    "copied": "Beschreibung und Link kopiert. F\u00fcge sie in eine Nachricht ein.",
+    "copied": "Nachricht und URL kopiert.",
     "shared": "An die Teilen-Funktion des Systems \u00fcbergeben.",
     "cancelled": "Teilen abgebrochen.",
     "manual": "Kopiere die unten markierte Nachricht.",
     "busy": "Zuerst das aktuelle Quiz, Duell oder Dialogfenster beenden.",
     "aiReady": "Die KI-Fragen sind auf Stufen {from}\u2013{to} begrenzt. W\u00e4hle einen Gegner.",
-    "sharePreview": "Nachricht vor dem Teilen ansehen"
+    "sharePreview": "Nachricht vor dem Teilen ansehen",
+    "shareLinkLabel": "ARCO jetzt ausprobieren",
+    "copiedRich": "Nachricht und Textlink kopiert."
   }
 };
  const locale=()=>window.ArcoI18n?.locale||'zh-TW';
@@ -2718,21 +2724,50 @@ window.ArcoEngagement=(()=>{
  function notifyBusy(){A.notify(tr('busy'));}
  function status(text){const e=document.getElementById('eg-status');if(e)e.textContent=text;}
  function getShareUrl(){const input=document.getElementById('eg-share-url'),box=document.getElementById('eg-url-box');const raw=box&&!box.hidden?input.value:publicUrl(),u=validUrl(raw);if(!u){box.hidden=false;input?.focus();status(tr('invalidUrl'));return '';}state.shareUrl=u;save();syncSharePreview(u);return u;}
- function sharePayload(url){return {title:'ARCO',text:tr('shareText'),url};}
+ // Native sharing has no HTML/hyperlink-label field. Keep its real URL intact.
+ function sharePayload(url){return {title:'ARCO',text:tr('shareText')+'\n'+tr('shareLinkLabel'),url};}
  function shareMessage(url){const data=sharePayload(url);return data.text+(data.url?'\n'+data.url:'');}
+ // One clipboard item, two representations: a named link in rich-text editors,
+ // and a usable URL in apps that only accept plain text. Never copy raw HTML as text.
+ function shareHtml(url){
+  const safe=validUrl(url);if(!safe)return '';
+  return '<div>'+esc(tr('shareText')).replace(/\n/g,'<br>')+'<br><a href="'+esc(safe)+'">'+esc(tr('shareLinkLabel'))+'</a></div>';
+ }
  function syncSharePreview(url){const input=document.getElementById('eg-share-message');if(input)input.value=shareMessage(url);}
+ let copyBusy=false;
  async function copyShare(url,message=shareMessage(url)){
-  const owner=modal;if(!url||owner?.kind!=='share')return;
+  const owner=modal;if(!validUrl(url)||owner?.kind!=='share'||copyBusy)return;
+  const rich=shareHtml(url),button=document.querySelector('[data-eg="copy"]');
+  copyBusy=true;if(button)button.disabled=true;
+  const currentOwner=()=>modal===owner;
   try{
+   // Construct and start the write during the user's click, before any awaits.
+   if(window.isSecureContext&&navigator.clipboard?.write&&typeof window.ClipboardItem==='function'){
+    const Item=window.ClipboardItem;
+    try{
+     if(typeof Item.supports!=='function'||Item.supports('text/html')){
+      await navigator.clipboard.write([new Item({
+       'text/html':new Blob([rich],{type:'text/html'}),
+       'text/plain':new Blob([message],{type:'text/plain'})
+      })]);
+      if(currentOwner())status(tr('copiedRich'));
+      return;
+     }
+    }catch(_){/* Try plain text, or show the existing manual-copy field. */}
+   }
+   if(!currentOwner())return;
    if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');
    await navigator.clipboard.writeText(message);
-   if(modal===owner)status(tr('copied'));
+   if(currentOwner())status(tr('copied'));
   }catch(_){
-   if(modal!==owner)return;
+   if(!currentOwner())return;
    const preview=document.getElementById('eg-share-preview'),input=document.getElementById('eg-share-message');
    if(preview)preview.hidden=false;
    if(input){input.value=message;input.focus();input.select();input.setSelectionRange(0,message.length);}
    status(tr('manual'));
+  }finally{
+   copyBusy=false;
+   if(button?.isConnected)button.disabled=false;
   }
  }
  async function share(){
