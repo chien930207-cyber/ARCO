@@ -18,7 +18,7 @@ window.ArcoStorage = Object.freeze({
 <meta name="theme-color" content="#0B1020"><meta name="description" content="100 級樂理練習。每課一個觀念，先聽再試，把知識帶進演奏。">
 <title>ARCO 正式版 | 樂理練習室｜把樂理帶進演奏</title>
 <meta name="color-scheme" content="dark light">
-<!-- ARCO social preview: static tags for link crawlers; gold-logo-r1. -->
+<!-- ARCO social preview: static tags + real course UI; share-r3. -->
 <!-- Keep these absolute URLs in sync if the public website moves. -->
 <link rel="canonical" href="https://chien930207-cyber.github.io/ARCO/">
 <meta property="og:type" content="website">
@@ -27,17 +27,17 @@ window.ArcoStorage = Object.freeze({
 <meta property="og:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
 <meta property="og:url" content="https://chien930207-cyber.github.io/ARCO/">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-share-gold-r1.png">
-<meta property="og:image:secure_url" content="https://chien930207-cyber.github.io/ARCO/icons/arco-share-gold-r1.png">
+<meta property="og:image" content="https://chien930207-cyber.github.io/ARCO/arco-share-preview-r3.png">
+<meta property="og:image:secure_url" content="https://chien930207-cyber.github.io/ARCO/arco-share-preview-r3.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ARCO 金色 A Logo，深藍色背景">
+<meta property="og:image:alt" content="ARCO 樂理教學網站：金色 A Logo、100 級課程介面與音符時值圖解">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ARCO｜樂理教學網站">
 <meta name="twitter:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
-<meta name="twitter:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-share-gold-r1.png">
-<meta name="twitter:image:alt" content="ARCO 金色 A Logo，深藍色背景">
+<meta name="twitter:image" content="https://chien930207-cyber.github.io/ARCO/arco-share-preview-r3.png">
+<meta name="twitter:image:alt" content="ARCO 樂理教學網站：金色 A Logo、100 級課程介面與音符時值圖解">
 <!-- End ARCO social preview. -->
 <link rel="icon" href="./favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/arco-gold-32-r3.png">
@@ -1059,8 +1059,24 @@ window.ArcoInstallGate={prompt:null,installed:false};
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();window.ArcoInstallGate.prompt=event;document.dispatchEvent(new Event('arco:install-change'));});
 window.addEventListener('appinstalled',()=>{window.ArcoInstallGate.prompt=null;window.ArcoInstallGate.installed=true;document.dispatchEvent(new Event('arco:installed'));});
 </script>
-<meta name="arco-ui-release" content="2.9.0-production">
+<meta name="arco-ui-release" content="2.9.1-production">
 <link rel="manifest" href="./site.webmanifest">
+
+<style id="arco-welcome-restored-style">
+/* Original two-panel welcome, isolated from the compact reminder dialogs. */
+#welcome[data-welcome-layout="original"] .welcome-copy h1{text-wrap:balance}
+#welcome[data-welcome-layout="original"] .welcome-copy>.btn{white-space:normal;text-align:center}
+#welcome[data-welcome-layout="original"] .welcome-copy>.btn.secondary:hover{background:#e9e2d5;color:#23334a}
+#welcome[data-welcome-layout="original"] [data-welcome-status]{color:#4d5b6e}
+</style>
+<style id="arco-share-focus-fix">
+/* Initial focus is on readable dialog text, never on an action button.
+   Interactive controls keep their existing :focus-visible indication. */
+#eg-feature-dialog.eg-share .eg-initial-focus:focus { outline: none; box-shadow: none; }
+</style>
+<style id="arco-oneclick-style">
+#arco-install-dialog #install-title:focus{outline:none}
+</style>
 </head>
 <body>
 <!-- ARCO opening: self-contained, silent visuals. -->
@@ -1468,7 +1484,12 @@ window.ArcoDialogs=(()=>{
  <details class="compact-details"><summary>${t('materials')}</summary>${['mt','omt','ableton'].map(k=>A.sourceLink(A.D.sources[k].url,A.D.sources[k].title)).join('')}
  <p>${old('\u8ab2\u7a0b\u70ba\u81ea\u7de8\u5b78\u7fd2\u8def\u7dda\uff0c\u4e0d\u5c0d\u61c9\u5b98\u65b9\u6aa2\u5b9a\u3002\u5be6\u4f5c\u6838\u5c0d\u8f38\u5165\u5167\u5bb9\uff0c\u4e0d\u9304\u97f3\u6216\u81ea\u52d5\u8a55\u5206\u6f14\u594f\u3002')}</p></details>
  <details class="compact-details"><summary>${t('privacy')}</summary><p>${t('backupCopy')}</p><p>${old('\u7db2\u8def\u5c0d\u6230\u4f7f\u7528 PeerJS / WebRTC \u8207\u7b2c\u4e09\u65b9\u8a0a\u865f\u670d\u52d9\uff0c\u5c0d\u624b\u6703\u6536\u5230\u66b1\u7a31\u8207\u7b54\u984c\u8cc7\u6599\uff0c\u4e5f\u53ef\u80fd\u5f97\u77e5\u7db2\u8def\u4f4d\u5740\u3002\u623f\u865f\u4e0d\u662f\u5bc6\u78bc\uff0c\u8acb\u52ff\u4f7f\u7528\u654f\u611f\u8cc7\u6599\u3002\u672c\u7ad9\u672a\u63d0\u4f9b\u79c1\u4eba TURN \u4e2d\u7e7c\u6216\u7af6\u8cfd\u7d1a\u9632\u4f5c\u5f0a\u3002')}</p></details></div>`;}
- function welcome(){return `${close('welcome-dismiss')}${mark('book')}<div class="welcome-copy"><h1 id="welcome-title">${t('where')}</h1><p>${lines(t('whereCopy'))}</p><button class="btn" data-action="placement-start" autofocus>${t('placement')}</button><button class="btn secondary" data-action="start-from-first">${t('first')}</button><button class="text-button welcome-import" data-action="import">${t('oldImport')}</button></div>`;}
+ // Restore the original pre-compact welcome layout only. Translation uses the existing catalogue.
+ function welcome(){
+  const A=window.ARCO;
+  const text=value=>esc(window.ArcoI18n?.t(value)||value);
+  return `<div class="welcome-art" aria-hidden="true"><span>ARCO</span><div class="welcome-art-caption">${text("\u628a\u6a02\u7406\uff0c\u5e36\u9032\u6f14\u594f\u3002")}</div></div><div class="welcome-copy"><h1 id="welcome-title">${text("\u5f9e\u9069\u5408\u4f60\u7684\u8d77\u9ede\u958b\u59cb\u3002")}</h1><p>${text("15 \u984c\u627e\u5230\u7a0b\u5ea6\uff0c\u4e5f\u53ef\u76f4\u63a5\u5f9e\u7b2c 1 \u7d1a\u5b78\u8d77\u3002")}</p><div class="welcome-facts"><span>${A.icon('clock')}${text("\u6e2c\u9a57\u4e0d\u9650\u6642")}</span><span>${A.icon('check')}${text("\u6bcf\u95dc\u7b54\u5c0d 8 \u984c\u6649\u7d1a")}</span></div><button class="btn" data-action="placement-start" autofocus>${text("\u958b\u59cb 15 \u984c\u7a0b\u5ea6\u6e2c\u9a57")} ${A.icon('arrow')}</button><button class="btn secondary" data-action="start-from-first">${text("\u4e0d\u6e2c\u9a57\uff0c\u5f9e\u7b2c 1 \u7d1a\u958b\u59cb")}</button><button class="text-button welcome-import" data-action="import">${text("\u532f\u5165\u820a\u9032\u5ea6")}</button></div>`;
+ }
  function confirm(data){let {title,message,confirmText,cancelText}=data;let danger=false;
   if(title==='\u96e2\u958b\u9019\u6b21\u6311\u6230\uff1f'||title==='\u96e2\u958b\u9019\u6b21\u8907\u7fd2\uff1f'){title=t('leaveQuiz');message=t('leaveQuizCopy');}
   else if(title==='\u96e2\u958b\u7a0b\u5ea6\u6e2c\u9a57\uff1f'){title=t('leavePlacement');message=t('leavePlacementCopy');}
@@ -1905,7 +1926,7 @@ window.ArcoPlacement = (() => {
     const d = $('#welcome');
     if (!A.getState().placement && A.getState().placementRecord && location.hash!=='#duel') { start(); return; }
     if (A.hasStart() || ['#placement', '#duel'].includes(location.hash) || !d) return;
-    d.dataset.compact='welcome';d.dataset.noTranslate='';d.innerHTML=window.ArcoDialogs.welcome();
+    delete d.dataset.compact;d.dataset.welcomeLayout='original';d.dataset.noTranslate='';d.innerHTML=window.ArcoDialogs.welcome();
     d.showModal();
   }
 
@@ -2557,13 +2578,13 @@ window.ArcoMusic=(()=>{
  queue();return {stopMilestone(){if(cue?.kind==='chapter-clear'||cueRequest?.kind==='chapter-clear'){cancelCue();queue();}},settingsMarkup,battleControlMarkup,reset,tracks:TRACKS.map(t=>({...t})),snapshot:()=>({preferences:{...prefs},status,channel,reason:reason(),unlocked,contextState:ctx?.state||'uncreated',activeSources:[...voices.values()].filter(v=>v.playing&&!v.audio.paused).length,track:current?.track.id||null,position:current?.audio.currentTime||0,resultSound:cueStatus,resultEvents:playedCues.size})};
 })();</script>
 <script id="arco-engagement-js">'use strict';
-/** Production: ten-level milestones; daily share at 5 min and app at 10 min.
+/** Production: ten-level milestones; daily app at 5 min and share at 10 min.
  * Dates follow the device's local calendar. Only reminder bookkeeping changes.
  */
 window.ArcoEngagement=(()=>{
  const A=window.ARCO,STORE=window.ArcoStorage,KEY='arco.engagement.v1';
  const DAILY='arco.engagement.daily.v1',LOCK=DAILY+'.lock';
- const SHARE_AT=5*60*1000,INSTALL_AT=10*60*1000,LIMIT=INSTALL_AT,ID='eg-feature-dialog';
+ const INSTALL_AT=5*60*1000,SHARE_AT=10*60*1000,LIMIT=Math.max(INSTALL_AT,SHARE_AT),ID='eg-feature-dialog';
  const COOLDOWN=60000;
  const TEXT={
   "zh-TW": {
@@ -2575,7 +2596,7 @@ window.ArcoEngagement=(()=>{
     "share": "\u5206\u4eab\u7d66\u670b\u53cb",
     "copy": "\u8907\u88fd\u5206\u4eab\u6587\u5b57",
     "later": "\u5148\u7e7c\u7e8c\u5b78\u7fd2",
-    "shareText": "\ud83d\udce2\u63a8\u85a6\u4f60\u4e00\u500b\u6a02\u7406\u6559\u5b78\u7db2\u7ad9\uff1aARCO\n100 \u7d1a\u5faa\u5e8f\u6f38\u9032\u7684\u8ab2\u7a0b\uff0c\u642d\u914d\u5716\u89e3\u8207\u95d6\u95dc\u7df4\u7fd2\uff0c\u5e36\u4f60\u4e00\u6b65\u6b65\u4eab\u53d7\u6a02\u7406\u7684\u4e16\u754c\u3002\n\n\u96f6\u57fa\u790e\u4e5f\u80fd\u958b\u59cb\uff0c\u4e00\u8d77\u4f86\u8a66\u8a66\ud83c\udfb5\ud83c\udfb6",
+    "shareText": "\ud83d\udce2\u63a8\u85a6\u4f60\u4e00\u500b\u6a02\u7406\u6559\u5b78\u7db2\u7ad9\uff1aARCO\n\n100 \u7d1a\u5faa\u5e8f\u6f38\u9032\u7684\u8ab2\u7a0b\uff0c\u642d\u914d\u5716\u89e3\u8207\u95d6\u95dc\u7df4\u7fd2\uff0c\u5e36\u4f60\u4e00\u6b65\u6b65\u4eab\u53d7\u6a02\u7406\u7684\u4e16\u754c\u3002\n\u96f6\u57fa\u790e\u4e5f\u80fd\u958b\u59cb\uff0c\u4e00\u8d77\u4f86\u8a66\u8a66\ud83c\udfb5\ud83c\udfb6",
     "url": "ARCO \u6b63\u5f0f\u7db2\u5740",
     "invalidUrl": "\u8acb\u8f38\u5165\u6709\u6548\u7684 http \u6216 https \u7db2\u5740\u3002",
     "copied": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u7db2\u5740\u3002",
@@ -2585,7 +2606,7 @@ window.ArcoEngagement=(()=>{
     "busy": "\u8acb\u5148\u5b8c\u6210\u6216\u96e2\u958b\u76ee\u524d\u7684\u6e2c\u9a57\u3001\u5c0d\u6230\u6216\u8996\u7a97\u3002",
     "aiReady": "AI \u984c\u5eab\u5df2\u8a2d\u70ba\u7b2c {from}\u2013{to} \u7d1a\uff0c\u9078\u4e00\u4f4d\u5c0d\u624b\u5373\u53ef\u3002",
     "sharePreview": "\u9810\u89bd\u5206\u4eab\u6587\u5b57",
-    "shareLinkLabel": "\u99ac\u4e0a\u9ad4\u9a57arco",
+    "shareLinkLabel": "\u99ac\u4e0a\u9ad4\u9a57ARCO",
     "copiedRich": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u6587\u5b57\u8d85\u9023\u7d50\u3002"
   },
   "en": {
@@ -2597,7 +2618,7 @@ window.ArcoEngagement=(()=>{
     "share": "Share with a friend",
     "copy": "Copy share message",
     "later": "Keep learning for now",
-    "shareText": "\ud83d\udce2Here is a music theory learning website to try: ARCO\n100 step-by-step levels with diagrams and quiz challenges help you explore the world of music theory at your own pace.\n\nNo experience needed. Come give it a try\ud83c\udfb5\ud83c\udfb6",
+    "shareText": "\ud83d\udce2Here is a music theory learning website to try: ARCO\n\n100 step-by-step levels with diagrams and quiz challenges help you explore the world of music theory at your own pace.\nNo experience needed. Come give it a try\ud83c\udfb5\ud83c\udfb6",
     "url": "Public ARCO website",
     "invalidUrl": "Enter a valid http or https website URL.",
     "copied": "Share message and URL copied.",
@@ -2619,7 +2640,7 @@ window.ArcoEngagement=(()=>{
     "share": "Mit Freunden teilen",
     "copy": "Nachricht kopieren",
     "later": "Erst einmal weiterlernen",
-    "shareText": "\ud83d\udce2Entdecke ARCO, eine Website zum Lernen von Musiktheorie\n100 aufeinander aufbauende Stufen mit Schaubildern und Quizaufgaben begleiten dich Schritt f\u00fcr Schritt durch die Welt der Musiktheorie.\n\nAuch ohne Vorkenntnisse kannst du loslegen. Probier es aus\ud83c\udfb5\ud83c\udfb6",
+    "shareText": "\ud83d\udce2Entdecke ARCO, eine Website zum Lernen von Musiktheorie\n\n100 aufeinander aufbauende Stufen mit Schaubildern und Quizaufgaben begleiten dich Schritt f\u00fcr Schritt durch die Welt der Musiktheorie.\nAuch ohne Vorkenntnisse kannst du loslegen. Probier es aus\ud83c\udfb5\ud83c\udfb6",
     "url": "\u00d6ffentliche ARCO-Website",
     "invalidUrl": "Eine g\u00fcltige http- oder https-URL eingeben.",
     "copied": "Nachricht und URL kopiert.",
@@ -2723,7 +2744,7 @@ window.ArcoEngagement=(()=>{
  function validUrl(text){try{const u=new URL(text);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!u.hostname||/^(localhost|127\.|\[?::1\]?)/i.test(u.hostname))return '';u.hash='';u.search='';return u.href;}catch(_){return '';}}
  function defaultUrl(){if(!/^https?:$/.test(location.protocol))return '';return validUrl(new URL('./',location.href).href);}
  function publicUrl(){return defaultUrl()||validUrl(state.shareUrl);}
- function busy(){const q=A.getQuiz(),r=window.ArcoDuel?.getRoom();return document.hidden||window.ArcoSplash?.active||!!document.querySelector('dialog[open]')||!!window.ArcoPlacement?.active()||!!(q&&!q.finished)||!!(r&&!['result','error'].includes(r.status))||document.body.dataset.sound==='playing';}
+ function busy(){const q=A.getQuiz(),r=window.ArcoDuel?.getRoom();return window.ArcoInstall?.snapshot().prompting||document.hidden||window.ArcoSplash?.active||!!document.querySelector('dialog[open]')||!!window.ArcoPlacement?.active()||!!(q&&!q.finished)||!!(r&&!['result','error'].includes(r.status))||document.body.dataset.sound==='playing';}
  function chapterName(end){const name=A.D.chapters[Math.floor((end-1)/10)]?.title||'';return window.ArcoI18n?.t(name)||name;}
  function staff(){return '<svg class="eg-staff" viewBox="0 0 520 140" aria-hidden="true">'+[0,12,24,36,48].map(n=>`<path d="M-10 ${58+n} C125 ${10+n},180 ${111+n},290 ${62+n} S445 ${25+n},540 ${67+n}"/>`).join('')+'</svg>';}
  function medal(type){return window.ArcoDialogs.mark(type==='milestone'?'trophy':'users');}
@@ -2738,16 +2759,16 @@ window.ArcoEngagement=(()=>{
    d.innerHTML=closeButton()+medal('milestone')+`<div class="eg-content"><h2 id="eg-title">${esc(U.t('congrats'))}</h2><p id="eg-range" class="eg-range">${esc(tr('range',r))}</p><div class="eg-actions"><button class="btn eg-primary" data-eg="challenge">${esc(tr('challenge'))}</button><button class="btn secondary" data-eg="close" autofocus>${esc(tr('continue'))}</button></div><p class="eg-status" id="eg-status" role="status"></p></div>`;
   }else{
    const url=publicUrl();
-   d.innerHTML=closeButton()+medal('share')+`<div class="eg-content"><h2 id="eg-title">${U.lines(tr('shareTitle'))}</h2><p id="eg-team-thanks" class="eg-team-thanks">${U.lines(U.t('copyTitle'))}</p><p id="eg-support" class="eg-support">${U.lines(U.t('copyLine1')+'\n'+U.t('copyLine2'))}</p>
+   d.innerHTML=closeButton()+medal('share')+`<div class="eg-content"><h2 id="eg-title" class="eg-initial-focus" tabindex="-1" autofocus>${U.lines(tr('shareTitle'))}</h2><p id="eg-team-thanks" class="eg-team-thanks">${U.lines(U.t('copyTitle'))}</p><p id="eg-support" class="eg-support">${U.lines(U.t('copyLine1')+'\n'+U.t('copyLine2'))}</p>
    <div class="eg-url" id="eg-url-box" ${url?'hidden':''}><label for="eg-share-url">${esc(tr('url'))}</label><input type="url" id="eg-share-url" placeholder="https://..." value="${esc(url)}" autocomplete="url" spellcheck="false"></div>
-   <div class="eg-actions"><button class="btn eg-primary" data-eg="share">${esc(tr('share'))}</button></div><div class="eg-share-secondary"><button class="text-button" data-eg="copy">${esc(tr('copy'))}</button><button class="text-button" data-eg="close" autofocus>${esc(U.t('continue'))}</button></div>
+   <div class="eg-actions"><button class="btn eg-primary" data-eg="share">${esc(tr('share'))}</button></div><div class="eg-share-secondary"><button class="text-button" data-eg="copy">${esc(tr('copy'))}</button><button class="text-button" data-eg="close">${esc(U.t('continue'))}</button></div>
    <div class="eg-manual-copy" id="eg-share-preview" hidden><label class="sr-only" for="eg-share-message">${esc(tr('sharePreview'))}</label><textarea id="eg-share-message" rows="7" readonly spellcheck="false">${esc(shareMessage(url))}</textarea></div><p class="eg-status" id="eg-status" role="status"></p></div>`;
   }
  }
  function sound(){if(modal?.kind!=='milestone')return;document.dispatchEvent(new CustomEvent('arco:result',{detail:{kind:'chapter-clear',token:'milestone-'+Date.now()+'-'+Math.random().toString(16).slice(2)}}));}
  function open(data){if(busy())return false;modal={...data,route:location.hash};returnFocus=document.activeElement;shareBusy=false;renderModal();const d=document.getElementById(ID);d.showModal();d.querySelector('[autofocus]')?.focus({preventScroll:true});justOpenedAt=performance.now();if(data.kind==='milestone')sound();return true;}
  function close(){if(!modal)return;const was=modal;modal=null;shareBusy=false;document.getElementById(ID)?.close();if(was.kind==='milestone')window.ArcoMusic?.stopMilestone?.();cooldown=performance.now()+COOLDOWN;last=performance.now();saveSession();if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});}
- function reminderOpen(){return modal?.kind==='share'||!!document.getElementById('arco-install-dialog')?.open;}
+ function reminderOpen(){return window.ArcoInstall?.snapshot().prompting||modal?.kind==='share'||!!document.getElementById('arco-install-dialog')?.open;}
  function pump(){updateDaily(null,true);}
  function pumpDaily(daily,now){
   if(disposed||busy())return;
@@ -2759,8 +2780,10 @@ window.ArcoEngagement=(()=>{
    return;
   }
   if(performance.now()<cooldown||now<daily.notBefore)return;
-  const kind=!daily.shareShown&&daily.elapsed>=SHARE_AT?'share':
-   daily.shareShown&&!daily.installShown&&!daily.installSkipped&&daily.elapsed>=INSTALL_AT?'install':'';
+  // Installation is the first daily invitation. Sharing is independent of whether
+  // installation was accepted, dismissed or skipped on an already-installed app.
+  const kind=!daily.installShown&&!daily.installSkipped&&daily.elapsed>=INSTALL_AT?'install':
+   !daily.shareShown&&daily.elapsed>=SHARE_AT?'share':'';
   if(!kind)return;
   if(kind==='install'){
    const install=window.ArcoInstall;if(!install)return;
@@ -2787,13 +2810,13 @@ window.ArcoEngagement=(()=>{
  function status(text){const e=document.getElementById('eg-status');if(e)e.textContent=text;}
  function getShareUrl(){const input=document.getElementById('eg-share-url'),box=document.getElementById('eg-url-box');const raw=box&&!box.hidden?input.value:publicUrl(),u=validUrl(raw);if(!u){box.hidden=false;input?.focus();status(tr('invalidUrl'));return '';}state.shareUrl=u;save();syncSharePreview(u);return u;}
  // Native sharing has no HTML/hyperlink-label field. Keep its real URL intact.
- function sharePayload(url){return {title:'ARCO',text:tr('shareText')+'\n'+tr('shareLinkLabel'),url};}
+ function sharePayload(url){return {title:'ARCO',text:tr('shareText')+'\n\n'+tr('shareLinkLabel'),url};}
  function shareMessage(url){const data=sharePayload(url);return data.text+(data.url?'\n'+data.url:'');}
  // One clipboard item, two representations: a named link in rich-text editors,
  // and a usable URL in apps that only accept plain text. Never copy raw HTML as text.
  function shareHtml(url){
   const safe=validUrl(url);if(!safe)return '';
-  return '<div>'+esc(tr('shareText')).replace(/\n/g,'<br>')+'<br><a href="'+esc(safe)+'">'+esc(tr('shareLinkLabel'))+'</a></div>';
+  return '<div>'+esc(tr('shareText')).replace(/\n/g,'<br>')+'<br><br><a href="'+esc(safe)+'">'+esc(tr('shareLinkLabel'))+'</a></div>';
  }
  function syncSharePreview(url){const input=document.getElementById('eg-share-message');if(input)input.value=shareMessage(url);}
  let copyBusy=false;
@@ -2879,7 +2902,7 @@ window.ArcoEngagement=(()=>{
  });
  setInterval(tick,1000);save();saveSession();
  return {onCourseResult,snapshot:()=>{
-  const daily=readDaily(),next=!daily.shareShown?'share':!daily.installShown&&!daily.installSkipped?'install':null;
+  const daily=readDaily(),next=!daily.installShown&&!daily.installSkipped?'install':!daily.shareShown?'share':null;
   return {seen:[...state.seen],pending:state.pending.map(x=>({...x})),dailyDate:daily.date,
    foregroundMs:daily.elapsed,shareShown:daily.shareShown,installShown:daily.installShown,installSkipped:daily.installSkipped,
    thresholdMs:next==='share'?SHARE_AT:next==='install'?INSTALL_AT:null,thresholdsMs:{share:SHARE_AT,install:INSTALL_AT},
@@ -2889,14 +2912,15 @@ window.ArcoEngagement=(()=>{
 })();
 </script>
 <script id="arco-dialog-refresh">'use strict';
-(()=>{let locale=window.ArcoI18n?.locale;document.addEventListener('arco:localized',()=>{const next=window.ArcoI18n?.locale;if(locale===next)return;locale=next;const d=document.getElementById('settings');if(d?.open){const open=[...d.querySelectorAll('details[open]')].map(x=>x.className);const focus=document.activeElement?.id;const top=d.scrollTop;d.dataset.compact==='settings'?window.ARCO.openSettings():window.ARCO.about();d.querySelectorAll('details').forEach(x=>x.open=open.includes(x.className));d.scrollTop=top;if(focus)document.getElementById(focus)?.focus({preventScroll:true});}const w=document.getElementById('welcome');if(w?.open&&w.dataset.compact){w.innerHTML=window.ArcoDialogs.welcome();}});})();
+(()=>{let locale=window.ArcoI18n?.locale;document.addEventListener('arco:localized',()=>{const next=window.ArcoI18n?.locale;if(locale===next)return;locale=next;const d=document.getElementById('settings');if(d?.open){const open=[...d.querySelectorAll('details[open]')].map(x=>x.className);const focus=document.activeElement?.id;const top=d.scrollTop;d.dataset.compact==='settings'?window.ARCO.openSettings():window.ARCO.about();d.querySelectorAll('details').forEach(x=>x.open=open.includes(x.className));d.scrollTop=top;if(focus)document.getElementById(focus)?.focus({preventScroll:true});}const w=document.getElementById('welcome');if(w?.open&&(w.dataset.welcomeLayout==='original'||w.dataset.compact)){delete w.dataset.compact;w.dataset.welcomeLayout='original';w.innerHTML=window.ArcoDialogs.welcome();}});})();
 </script>
 <script id="arco-install-js">'use strict';
 window.ArcoInstall=(()=>{
- const TEXT={"title": ["\u65b0\u589e ARCO APP", "Add the ARCO app", "ARCO als App hinzuf\u00fcgen"], "label": ["\u65b0\u589e APP", "Add app", "App hinzuf\u00fcgen"], "hint": ["\u52a0\u5230\u4e3b\u756b\u9762\uff0c\u96a8\u6642\u7e7c\u7e8c\u5b78\u7fd2\u3002", "Keep ARCO on your home screen for your next practice.", "Mit ARCO auf dem Startbildschirm jederzeit weiterlernen."], "install": ["\u65b0\u589e APP", "Install app", "App installieren"], "done": ["\u77e5\u9053\u4e86", "Got it", "Verstanden"], "close": ["\u95dc\u9589", "Close", "Schlie\u00dfen"], "cancel": ["\u7a0d\u5f8c\u518d\u8aaa", "Not now", "Sp\u00e4ter"], "other": ["\u5176\u4ed6\u88dd\u7f6e", "Other devices", "Andere Ger\u00e4te"], "backup": ["\u9032\u5ea6\u63d0\u9192", "Your progress", "Dein Fortschritt"], "backupCopy": ["\u90e8\u5206\u88dd\u7f6e\u7684 APP \u8207\u700f\u89bd\u5668\u5b58\u6a94\u5206\u958b\u3002\u65b0\u589e\u524d\u53ef\u5148\u532f\u51fa\u9032\u5ea6\uff0c\u9700\u8981\u6642\u5728 APP \u5167\u532f\u5165\u3002", "Some devices keep app and browser data separate. Export progress before installing, then import it in the app if needed.", "Manche Ger\u00e4te speichern App- und Browserdaten getrennt. Exportiere vor der Installation deinen Fortschritt und importiere ihn bei Bedarf in der App."], "export": ["\u532f\u51fa\u9032\u5ea6", "Export progress", "Fortschritt exportieren"], "iosLabel": ["iPhone / iPad \u00b7 Safari", "iPhone / iPad \u00b7 Safari", "iPhone / iPad \u00b7 Safari"], "ios1": ["\u5728 Safari \u9ede\u300c\u5206\u4eab\u300d\u3002", "Tap Share in Safari.", "In Safari auf Teilen tippen."], "ios2": ["\u9078\u300c\u52a0\u5165\u4e3b\u756b\u9762\u300d\u3002", "Choose Add to Home Screen.", "Zum Home-Bildschirm w\u00e4hlen."], "ios3": ["\u82e5\u6709\u300c\u6253\u958b\u70ba\u7db2\u9801 App\u300d\uff0c\n\u958b\u555f\u5f8c\u518d\u9ede\u300c\u52a0\u5165\u300d\u3002", "Enable Open as Web App if offered, then tap Add.", "Falls vorhanden: Als Web-App \u00f6ffnen aktivieren, dann Hinzuf\u00fcgen."], "androidLabel": ["Android \u00b7 Chrome", "Android \u00b7 Chrome", "Android \u00b7 Chrome"], "android1": ["\u5728 Chrome \u958b\u555f\u6b64\u7db2\u7ad9\uff0c\n\u9ede\u53f3\u4e0a\u89d2 \u22ee\u3002", "Open this site in Chrome and tap \u22ee.", "Diese Website in Chrome \u00f6ffnen und auf \u22ee tippen."], "android2": ["\u9078\u300c\u65b0\u589e\u81f3\u4e3b\u756b\u9762\u300d\n\u6216\u300c\u5b89\u88dd\u61c9\u7528\u7a0b\u5f0f\u300d\u3002", "Choose Add to Home screen or Install app.", "Zum Startbildschirm hinzuf\u00fcgen oder App installieren w\u00e4hlen."], "android3": ["\u78ba\u8a8d\u65b0\u589e ARCO\u3002", "Confirm to add ARCO.", "Das Hinzuf\u00fcgen von ARCO best\u00e4tigen."], "desktopLabel": ["\u96fb\u8166 \u00b7 Chrome / Edge", "Computer \u00b7 Chrome / Edge", "Computer \u00b7 Chrome / Edge"], "desktop1": ["\u7528 Chrome \u6216 Edge \u958b\u555f\u6b64\u7db2\u7ad9\u3002", "Open this site in Chrome or Edge.", "Diese Website in Chrome oder Edge \u00f6ffnen."], "desktop2": ["\u9ede\u7db2\u5740\u5217\u7684\u5b89\u88dd\u5716\u793a\uff0c\n\u6216\u5f9e\u700f\u89bd\u5668\u9078\u55ae\u9078\u64c7\u5b89\u88dd APP\u3002", "Use the install icon in the address bar, or Install this site as an app in the browser menu.", "Das Installationssymbol in der Adressleiste oder Website als App installieren im Browsermen\u00fc w\u00e4hlen."], "desktop3": ["\u78ba\u8a8d\u5b89\u88dd\uff0c\u4e4b\u5f8c\u5f9e APP \u5716\u793a\u958b\u555f\u3002", "Confirm installation, then open ARCO from its app icon.", "Installation best\u00e4tigen. Danach ARCO \u00fcber das App-Symbol \u00f6ffnen."], "macLabel": ["Mac \u00b7 Safari", "Mac \u00b7 Safari", "Mac \u00b7 Safari"], "mac1": ["\u5728 Safari \u9078\u300c\u6a94\u6848\u300d\uff0c\u518d\u9078\u300c\u52a0\u5165 Dock \u4e2d\u300d\u3002", "In Safari choose File, then Add to Dock.", "In Safari Ablage und dann Zum Dock hinzuf\u00fcgen w\u00e4hlen."], "mac2": ["\u78ba\u8a8d\u540d\u7a31\u4e26\u9ede\u300c\u52a0\u5165\u300d\u3002", "Confirm the name and click Add.", "Den Namen best\u00e4tigen und auf Hinzuf\u00fcgen klicken."], "mac3": ["\u9700 macOS Sonoma 14 \u6216\u66f4\u65b0\u7248\u672c\u3002", "Requires macOS Sonoma 14 or later.", "Ben\u00f6tigt macOS Sonoma 14 oder neuer."], "native": ["\u78ba\u8a8d\u5f8c\uff0c\u5c31\u80fd\u5f9e APP \u5716\u793a\u76f4\u63a5\u958b\u555f\u3002", "Confirm in your browser to add ARCO to this device.", "Best\u00e4tige im Browser, um ARCO auf diesem Ger\u00e4t hinzuzuf\u00fcgen."], "local": ["\u8acb\u958b\u555f\u4e0a\u7dda\u7db2\u5740\uff0c\u518d\u65b0\u589e APP\u3002", "Open the live website to add the app.", "Zum Hinzuf\u00fcgen der App bitte die ver\u00f6ffentlichte Website \u00f6ffnen."], "insecure": ["\u8acb\u4f7f\u7528 HTTPS \u7db2\u5740\u65b0\u589e APP\u3002", "Open the HTTPS version of this site to install.", "Zum Installieren bitte die HTTPS-Version \u00f6ffnen."], "embedded": ["\u8acb\u5f9e\u9078\u55ae\u9078\u300c\u4ee5\u700f\u89bd\u5668\u958b\u555f\u300d\uff0c\u518d\u65b0\u589e APP\u3002", "Open this page in Safari or Chrome from the app menu, then add ARCO.", "Diese Seite \u00fcber das App-Men\u00fc in Safari oder Chrome \u00f6ffnen und ARCO hinzuf\u00fcgen."], "iosOther": ["\u8acb\u5148\u4ee5 Safari \u958b\u555f\u6b64\u7db2\u7ad9\u3002", "Open this website in Safari first.", "Diese Website zuerst in Safari \u00f6ffnen."], "copied": ["\u7db2\u5740\u5df2\u8907\u88fd\u3002", "Link copied.", "Link kopiert."], "copy": ["\u8907\u88fd\u7db2\u5740", "Copy link", "Link kopieren"], "manualCopy": ["\u8acb\u8907\u88fd\u4e0b\u65b9\u7db2\u5740\u3002", "Copy the link below.", "Bitte den folgenden Link kopieren."], "installed": ["ARCO \u5df2\u65b0\u589e\u3002", "ARCO has been added.", "ARCO wurde hinzugef\u00fcgt."], "working": ["\u8acb\u5b8c\u6210\u700f\u89bd\u5668\u7684\u5b89\u88dd\u78ba\u8a8d\u3002", "Complete installation in your browser.", "Installation im Browser best\u00e4tigen."], "dismissed": ["\u4e4b\u5f8c\u4e5f\u80fd\u5f9e\u700f\u89bd\u5668\u9078\u55ae\u65b0\u589e\u3002", "You can also add ARCO later from your browser menu.", "ARCO l\u00e4sst sich auch sp\u00e4ter \u00fcber das Browsermen\u00fc hinzuf\u00fcgen."], "failed": ["\u8acb\u4f9d\u4e0b\u65b9\u6b65\u9a5f\u65b0\u589e\u3002", "Use the steps below to add ARCO.", "ARCO mit den folgenden Schritten hinzuf\u00fcgen."], "busy": ["\u5b8c\u6210\u4f5c\u7b54\u5f8c\u518d\u65b0\u589e APP\u3002", "Finish this quiz or duel before installing.", "Bitte vor der Installation das Quiz oder Duell beenden."], "appTitle": ["ARCO", "ARCO", "ARCO"], "unknown": ["\u6b64\u700f\u89bd\u5668\u6c92\u6709\u63d0\u4f9b\u76f4\u63a5\u5b89\u88dd\u3002\u53ef\u7528 Chrome \u6216 Edge\u3002", "This browser has not offered installation. Try Chrome or Edge.", "Dieser Browser bietet gerade keine Installation an. Versuche Chrome oder Edge."]};
- const G=window.ArcoInstallGate, A=window.ARCO, E=A.escape, D=window.ArcoDialogs;
+ const TEXT={"title": ["\u65b0\u589e ARCO APP", "Add the ARCO app", "ARCO als App hinzuf\u00fcgen"], "label": ["\u65b0\u589e APP", "Add app", "App hinzuf\u00fcgen"], "hint": ["\u52a0\u5230\u4e3b\u756b\u9762\uff0c\u96a8\u6642\u7e7c\u7e8c\u5b78\u7fd2\u3002", "Keep ARCO on your home screen for your next practice.", "Mit ARCO auf dem Startbildschirm jederzeit weiterlernen."], "install": ["\u65b0\u589e APP", "Install app", "App installieren"], "done": ["\u77e5\u9053\u4e86", "Got it", "Verstanden"], "close": ["\u95dc\u9589", "Close", "Schlie\u00dfen"], "cancel": ["\u7a0d\u5f8c\u518d\u8aaa", "Not now", "Sp\u00e4ter"], "other": ["\u5176\u4ed6\u88dd\u7f6e", "Other devices", "Andere Ger\u00e4te"], "backup": ["\u9032\u5ea6\u63d0\u9192", "Your progress", "Dein Fortschritt"], "backupCopy": ["\u90e8\u5206\u88dd\u7f6e\u7684 APP \u8207\u700f\u89bd\u5668\u5b58\u6a94\u5206\u958b\u3002\u65b0\u589e\u524d\u53ef\u5148\u532f\u51fa\u9032\u5ea6\uff0c\u9700\u8981\u6642\u5728 APP \u5167\u532f\u5165\u3002", "Some devices keep app and browser data separate. Export progress before installing, then import it in the app if needed.", "Manche Ger\u00e4te speichern App- und Browserdaten getrennt. Exportiere vor der Installation deinen Fortschritt und importiere ihn bei Bedarf in der App."], "export": ["\u532f\u51fa\u9032\u5ea6", "Export progress", "Fortschritt exportieren"], "iosLabel": ["iPhone / iPad \u00b7 Safari", "iPhone / iPad \u00b7 Safari", "iPhone / iPad \u00b7 Safari"], "ios1": ["\u5728 Safari \u9ede\u300c\u5206\u4eab\u300d\uff1b\u82e5\u672a\u986f\u793a\uff0c\u5148\u958b\u555f\u9801\u9762\u9078\u55ae\u3002", "In Safari, tap Share (open the page menu first if needed).", "In Safari auf Teilen tippen, falls n\u00f6tig zuerst das Seitenmen\u00fc \u00f6ffnen."], "ios2": ["\u9078\u300c\u52a0\u5165\u4e3b\u756b\u9762\u300d\u3002", "Choose Add to Home Screen.", "Zum Home-Bildschirm w\u00e4hlen."], "ios3": ["\u82e5\u6709\u300c\u6253\u958b\u70ba\u7db2\u9801 App\u300d\uff0c\n\u958b\u555f\u5f8c\u518d\u9ede\u300c\u52a0\u5165\u300d\u3002", "Enable Open as Web App if offered, then tap Add.", "Falls vorhanden: Als Web-App \u00f6ffnen aktivieren, dann Hinzuf\u00fcgen."], "androidLabel": ["Android \u00b7 Chrome", "Android \u00b7 Chrome", "Android \u00b7 Chrome"], "android1": ["\u5728 Chrome \u958b\u555f\u6b64\u7db2\u7ad9\uff0c\n\u9ede\u53f3\u4e0a\u89d2 \u22ee\u3002", "Open this site in Chrome and tap \u22ee.", "Diese Website in Chrome \u00f6ffnen und auf \u22ee tippen."], "android2": ["\u9078\u64c7\u5b89\u88dd\u6216\u65b0\u589e\u81f3\u4e3b\u756b\u9762\uff08\u540d\u7a31\u4f9d\u700f\u89bd\u5668\u7248\u672c\u800c\u7570\uff09\u3002", "Choose the install or add-to-home-screen option (the name varies by browser version).", "Installation oder Zum Startbildschirm hinzuf\u00fcgen w\u00e4hlen (Bezeichnung je nach Browserversion)."], "android3": ["\u78ba\u8a8d\u65b0\u589e ARCO\u3002", "Confirm to add ARCO.", "Das Hinzuf\u00fcgen von ARCO best\u00e4tigen."], "desktopLabel": ["\u96fb\u8166 \u00b7 Chrome / Edge", "Computer \u00b7 Chrome / Edge", "Computer \u00b7 Chrome / Edge"], "desktop1": ["\u7528 Chrome \u6216 Edge \u958b\u555f\u6b64\u7db2\u7ad9\u3002", "Open this site in Chrome or Edge.", "Diese Website in Chrome oder Edge \u00f6ffnen."], "desktop2": ["\u9ede\u7db2\u5740\u5217\u7684\u5b89\u88dd\u5716\u793a\uff0c\n\u6216\u5f9e\u700f\u89bd\u5668\u9078\u55ae\u9078\u64c7\u5b89\u88dd APP\u3002", "Use the install icon in the address bar, or Install this site as an app in the browser menu.", "Das Installationssymbol in der Adressleiste oder Website als App installieren im Browsermen\u00fc w\u00e4hlen."], "desktop3": ["\u78ba\u8a8d\u5b89\u88dd\uff0c\u4e4b\u5f8c\u5f9e APP \u5716\u793a\u958b\u555f\u3002", "Confirm installation, then open ARCO from its app icon.", "Installation best\u00e4tigen. Danach ARCO \u00fcber das App-Symbol \u00f6ffnen."], "macLabel": ["Mac \u00b7 Safari", "Mac \u00b7 Safari", "Mac \u00b7 Safari"], "mac1": ["\u5728 Safari \u9078\u300c\u6a94\u6848\u300d\uff0c\u518d\u9078\u300c\u52a0\u5165 Dock \u4e2d\u300d\u3002", "In Safari choose File, then Add to Dock.", "In Safari Ablage und dann Zum Dock hinzuf\u00fcgen w\u00e4hlen."], "mac2": ["\u78ba\u8a8d\u540d\u7a31\u4e26\u9ede\u300c\u52a0\u5165\u300d\u3002", "Confirm the name and click Add.", "Den Namen best\u00e4tigen und auf Hinzuf\u00fcgen klicken."], "mac3": ["\u9700 macOS Sonoma 14 \u6216\u66f4\u65b0\u7248\u672c\u3002", "Requires macOS Sonoma 14 or later.", "Ben\u00f6tigt macOS Sonoma 14 oder neuer."], "native": ["\u78ba\u8a8d\u5f8c\uff0c\u5c31\u80fd\u5f9e APP \u5716\u793a\u76f4\u63a5\u958b\u555f\u3002", "Confirm in your browser to add ARCO to this device.", "Best\u00e4tige im Browser, um ARCO auf diesem Ger\u00e4t hinzuzuf\u00fcgen."], "local": ["\u672c\u6a5f HTML \u7121\u6cd5\u5b89\u88dd APP\uff0c\u8acb\u4f7f\u7528\u4e0a\u7dda\u7684 ARCO \u7db2\u5740\u3002", "A local HTML file cannot install the app. Use the live ARCO website.", "Eine lokale HTML-Datei kann die App nicht installieren. Nutze die veroeffentlichte ARCO-Website."], "insecure": ["\u8acb\u4f7f\u7528 HTTPS \u7db2\u5740\u65b0\u589e APP\u3002", "Open the HTTPS version of this site to install.", "Zum Installieren bitte die HTTPS-Version \u00f6ffnen."], "embedded": ["\u8acb\u5f9e\u9078\u55ae\u9078\u300c\u4ee5\u700f\u89bd\u5668\u958b\u555f\u300d\uff0c\u518d\u65b0\u589e APP\u3002", "Open this page in Safari or Chrome from the app menu, then add ARCO.", "Diese Seite \u00fcber das App-Men\u00fc in Safari oder Chrome \u00f6ffnen und ARCO hinzuf\u00fcgen."], "iosOther": ["\u8acb\u5148\u4ee5 Safari \u958b\u555f\u6b64\u7db2\u7ad9\u3002", "Open this website in Safari first.", "Diese Website zuerst in Safari \u00f6ffnen."], "copied": ["\u7db2\u5740\u5df2\u8907\u88fd\u3002", "Link copied.", "Link kopiert."], "copy": ["\u8907\u88fd\u7db2\u5740", "Copy link", "Link kopieren"], "manualCopy": ["\u8acb\u8907\u88fd\u4e0b\u65b9\u7db2\u5740\u3002", "Copy the link below.", "Bitte den folgenden Link kopieren."], "installed": ["ARCO \u5df2\u65b0\u589e\u3002", "ARCO has been added.", "ARCO wurde hinzugef\u00fcgt."], "working": ["\u8acb\u5b8c\u6210\u700f\u89bd\u5668\u7684\u5b89\u88dd\u78ba\u8a8d\u3002", "Complete installation in your browser.", "Installation im Browser best\u00e4tigen."], "dismissed": ["\u4e4b\u5f8c\u4e5f\u80fd\u5f9e\u700f\u89bd\u5668\u9078\u55ae\u65b0\u589e\u3002", "You can also add ARCO later from your browser menu.", "ARCO l\u00e4sst sich auch sp\u00e4ter \u00fcber das Browsermen\u00fc hinzuf\u00fcgen."], "failed": ["\u672a\u80fd\u958b\u555f\u7cfb\u7d71\u5b89\u88dd\uff0c\u8acb\u4f9d\u4e0b\u65b9\u6b65\u9a5f\u65b0\u589e\u3002", "The system installation could not open. Use the steps below.", "Die Systeminstallation konnte nicht ge\u00f6ffnet werden. Nutze die folgenden Schritte."], "busy": ["\u5b8c\u6210\u4f5c\u7b54\u5f8c\u518d\u65b0\u589e APP\u3002", "Finish this quiz or duel before installing.", "Bitte vor der Installation das Quiz oder Duell beenden."], "appTitle": ["ARCO", "ARCO", "ARCO"], "unknown": ["\u6b64\u700f\u89bd\u5668\u6c92\u6709\u63d0\u4f9b\u76f4\u63a5\u5b89\u88dd\u3002\u53ef\u7528 Chrome \u6216 Edge\u3002", "This browser has not offered installation. Try Chrome or Edge.", "Dieser Browser bietet gerade keine Installation an. Versuche Chrome oder Edge."], "prompting": ["\u8acb\u5728\u7cfb\u7d71\u8996\u7a97\u78ba\u8a8d\u5b89\u88dd\u3002", "Confirm installation in the system window.", "Bitte die Installation im Systemdialog best\u00e4tigen."], "accepted": ["\u5df2\u9001\u51fa\u5b89\u88dd\u8acb\u6c42\uff0c\u7b49\u5f85\u7cfb\u7d71\u5b8c\u6210\u3002", "Installation requested. Waiting for the system to finish.", "Installation angefordert. Warte auf den Abschluss durch das System."], "cancelled": ["\u5df2\u53d6\u6d88\u5b89\u88dd\u3002", "Installation cancelled.", "Installation abgebrochen."], "unavailable": ["\u700f\u89bd\u5668\u76ee\u524d\u672a\u63d0\u4f9b\u4e00\u9375\u5b89\u88dd\uff0c\u8acb\u4f9d\u4e0b\u65b9\u6b65\u9a5f\u65b0\u589e\u3002", "Your browser is not offering direct installation right now. Use the steps below.", "Der Browser bietet derzeit keine direkte Installation an. Nutze die folgenden Schritte."]};
+
+ const G=window.ArcoInstallGate,A=window.ARCO,E=A.escape,D=window.ArcoDialogs;
  const t=k=>TEXT[k]?.[window.ArcoI18n?.locale==='en'?1:window.ArcoI18n?.locale==='de'?2:0]||k;
- const mode=matchMedia('(display-mode: standalone)'), minimal=matchMedia('(display-mode: minimal-ui)');
+ const mode=matchMedia('(display-mode: standalone)'),minimal=matchMedia('(display-mode: minimal-ui)');
  const standalone=()=>mode.matches||minimal.matches||navigator.standalone===true;
  const available=()=>!standalone()&&!G.installed;
  const ua=navigator.userAgent;
@@ -2907,75 +2931,113 @@ window.ArcoInstall=(()=>{
  const platform=ios?'ios':android?'android':mac&&safari?'mac':'desktop';
  const local=location.protocol==='file:',secure=/^https?:$/.test(location.protocol)&&window.isSecureContext;
  const icon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5M12 3v11m-4-4 4 4 4-4"/></svg>';
- let opener=null,prompting=false,locale='',swStatus='not-started';
+ let opener=null,prompting=false,locale='',swStatus='not-started',nativeOutcome='idle',lastError='',forceGuide=false,pageActive=true;
  const dialog=document.createElement('dialog');dialog.id='arco-install-dialog';dialog.className='compact-dialog app-install-dialog';dialog.dataset.noTranslate='';dialog.setAttribute('aria-labelledby','install-title');dialog.setAttribute('aria-describedby','install-hint');document.body.append(dialog);
- // Installation is offered only by the alternating reminder scheduler.
  const activeWork=()=>{const q=A.getQuiz(),r=window.ArcoDuel?.getRoom();return !!(q&&!q.finished)||!!window.ArcoPlacement?.active()||!!(r&&!['error','result'].includes(r.status));};
+ // Capability first. Use only the browser installation API; stay on this production site.
+ const canPrompt=()=>available()&&secure&&typeof G.prompt?.prompt==='function'&&!prompting;
+ const signal=()=>document.dispatchEvent(new CustomEvent('arco:install-state',{detail:{outcome:nativeOutcome,prompting}}));
  function steps(p){return `<p class="install-platform">${E(t(p+'Label'))}</p><ol class="install-steps">${[1,2,3].map(i=>`<li><span>${i}</span><div>${t(p+i).split('\n').map(line=>`<span class="dialog-sentence">${E(line)}</span>`).join('')}</div></li>`).join('')}</ol>`;}
- function url(){if(!/^https?:$/.test(location.protocol))return '';const u=new URL('./',location.href);u.hash='';u.search='';return /^https?:$/.test(u.protocol)?u.href:'';}
+ function url(){if(!/^https?:$/.test(location.protocol))return '';const u=new URL('./',location.href);u.hash='';u.search='';return u.href;}
  function render(){
-  locale=window.ArcoI18n?.locale||'zh-TW';const native=!!G.prompt&&secure&&!embedded&&!ios;
-  let note=local?t('local'):!secure?t('insecure'):embedded?t('embedded'):ios&&!safari?t('iosOther'):'';
+  locale=window.ArcoI18n?.locale||'zh-TW';const native=canPrompt()&&!forceGuide;
+  const note=local?t('local'):!secure?t('insecure'):embedded?t('embedded'):ios&&!safari?t('iosOther'):!native&&!ios&&!(mac&&safari)?t('unavailable'):'';
   dialog.innerHTML=`<button class="icon-button compact-close" data-install-close aria-label="${E(t('close'))}">${A.icon('close')}</button>
-  <div class="install-app-mark" aria-hidden="true">${A.brandMark()}</div><h2 id="install-title">${E(t('title'))}</h2><p id="install-hint">${D.lines(t('hint'))}</p>
-  ${note?`<p class="install-note">${E(note)}</p>`:''}
-  ${native?`<p class="install-native-copy">${E(t('native'))}</p><button type="button" class="btn install-primary" data-install-prompt>${icon}${E(t('install'))}</button><button class="text-button install-later" data-install-close>${E(t('cancel'))}</button>`:`${steps(platform)}<button type="button" class="btn install-primary" data-install-close autofocus>${E(t('done'))}</button>`}
-  <details class="compact-details install-backup"><summary>${E(t('backup'))}</summary><p>${E(t('backupCopy'))}</p><button type="button" class="text-button" data-action="export">${E(t('export'))}</button></details>
-  <details class="compact-details install-others"><summary>${E(t('other'))}</summary>${['ios','android','desktop','mac'].filter(p=>p!==platform).map(steps).join('')}</details>
-  ${url()&&(embedded||ios&&!safari)?`<button class="text-button" type="button" data-install-copy>${E(t('copy'))}</button>`:''}
-  <div class="install-manual-url" hidden><label class="sr-only" for="install-copy-url">URL</label><input id="install-copy-url" readonly value="${E(url())}"></div><p id="install-status" class="dialog-status" role="status"></p>`;
+   <div class="install-app-mark" aria-hidden="true">${A.brandMark()}</div><h2 id="install-title" tabindex="-1">${E(t('title'))}</h2><p id="install-hint">${D.lines(t('hint'))}</p>
+   ${note?`<p class="install-note">${E(note)}</p>`:''}
+   ${native?`<p class="install-native-copy">${E(t('native'))}</p><button type="button" class="btn install-primary" data-install-prompt>${icon}${E(t('install'))}</button><button class="text-button install-later" data-install-close>${E(t('cancel'))}</button>`:`${steps(platform)}<button type="button" class="btn install-primary" data-install-close>${E(t('done'))}</button>`}
+   <details class="compact-details install-backup"><summary>${E(t('backup'))}</summary><p>${E(t('backupCopy'))}</p><button type="button" class="text-button" data-action="export">${E(t('export'))}</button></details>
+   ${native?'':`<details class="compact-details install-others"><summary>${E(t('other'))}</summary>${['ios','android','desktop','mac'].filter(p=>p!==platform).map(steps).join('')}</details>`}
+   ${url()&&(embedded||ios&&!safari)?`<button class="text-button" type="button" data-install-copy>${E(t('copy'))}</button>`:''}
+   <div class="install-manual-url" hidden><label class="sr-only" for="install-copy-url">URL</label><input id="install-copy-url" readonly value="${E(url())}"></div><p id="install-status" class="dialog-status" role="status"></p>`;
  }
+ function focusTitle(){dialog.querySelector('#install-title')?.focus({preventScroll:true});}
  function setStatus(text){const n=dialog.querySelector('#install-status');if(n)n.textContent=text;}
  function refresh(){
-  const key=window.ArcoI18n?.locale||'zh-TW';
   if(!available()&&dialog.open){close();return;}
-  if(dialog.open&&locale!==key){render();dialog.querySelector('[data-install-prompt],[autofocus]')?.focus({preventScroll:true});}
+  const key=window.ArcoI18n?.locale||'zh-TW';
+  if(dialog.open&&locale!==key){render();focusTitle();}
  }
  function open(options={}){
-  if(!available())return false;
+  if(!available()||prompting||nativeOutcome==='accepted')return false;
   if(activeWork()){if(!options.automatic)A.notify(t('busy'));return false;}
-  if(document.hidden||window.ArcoSplash?.active||document.querySelector('dialog[open]'))return false;
-  opener=document.activeElement;
-  render();dialog.showModal();dialog.querySelector('[data-install-prompt],[autofocus]')?.focus({preventScroll:true});
-  return true;
+  if(document.hidden||!pageActive||window.ArcoSplash?.active||document.querySelector('dialog[open]'))return false;
+  opener=document.activeElement;forceGuide=options.forceGuide===true;
+  render();dialog.showModal();focusTitle();return true;
  }
- function close(){
-  if(!dialog.open)return;
-  dialog.close();
-  if(opener?.isConnected&&!opener.hidden)opener.focus({preventScroll:true});
+ function close(){if(!dialog.open)return;dialog.close();if(opener?.isConnected&&!opener.hidden)opener.focus({preventScroll:true});}
+ async function runNative(event,route){
+  try{
+   // First privileged operation in the trusted click. No await, timer, or custom dialog before it.
+   const resultPromise=event.prompt();
+   close();signal();
+   const result=await resultPromise;
+   const choice=result?.outcome?result:await event.userChoice;
+   if(G.installed||standalone()){nativeOutcome='installed';}
+   else if(choice?.outcome==='accepted'){nativeOutcome='accepted';A.notify(t('accepted'));}
+   else if(choice?.outcome==='dismissed'){nativeOutcome='dismissed';A.notify(t('cancelled'));}
+   else throw new Error('No installation outcome');
+  }catch(error){
+   lastError=String(error?.name||'Error');nativeOutcome='error';prompting=false;
+   // Only an actual failure falls back. A user cancellation never opens another prompt.
+   if(pageActive&&location.hash===route&&dialog.open){forceGuide=true;render();focusTitle();setStatus(t('failed'));}
+   else if(pageActive&&location.hash===route&&open({automatic:true,forceGuide:true}))setStatus(t('failed'));
+   else if(pageActive)A.notify(t('failed'));
+  }finally{
+   prompting=false;signal();refresh();
+   document.dispatchEvent(new Event('arco:install-closed'));
+  }
  }
- async function prompt(){
-  if(prompting||!dialog.open||!G.prompt)return;
-  const event=G.prompt;G.prompt=null;prompting=true;const b=dialog.querySelector('[data-install-prompt]');if(b)b.disabled=true;
-  try{const result=await event.prompt();const choice=result?.outcome?result:await event.userChoice;
-   if(!G.installed&&dialog.open){render();setStatus(t(choice?.outcome==='accepted'?'working':'dismissed'));}
-  }catch(_){if(dialog.open){render();setStatus(t('failed'));}}
-  finally{prompting=false;if(b?.isConnected)b.disabled=false;refresh();}
+ function requestInstall(){
+  if(prompting)return false;
+  if(!available()){A.notify(t('installed'));return true;}
+  if(nativeOutcome==='accepted'){A.notify(t('accepted'));return true;}
+  if(activeWork()){A.notify(t('busy'));return false;}
+  const other=document.querySelector('dialog[open]');
+  if(document.hidden||!pageActive||window.ArcoSplash?.active||(other&&other!==dialog))return false;
+  // Timer/deferred callers must only open our invitation; the system prompt requires a click.
+  if(navigator.userActivation&&navigator.userActivation.isActive===false){
+   if(dialog.open){render();focusTitle();return true;}
+   return open({automatic:true});
+  }
+  if(canPrompt()){
+   if(!dialog.open)opener=document.activeElement;
+   const event=G.prompt;G.prompt=null;prompting=true;nativeOutcome='prompting';lastError='';forceGuide=false;
+   void runNative(event,location.hash);return true;
+  }
+  if(dialog.open){forceGuide=true;render();focusTitle();return true;}
+  return open({forceGuide:true});
  }
  async function copy(){const u=url();if(!u)return;try{if(!navigator.clipboard?.writeText)throw Error();await navigator.clipboard.writeText(u);setStatus(t('copied'));}catch(_){dialog.querySelector('.install-manual-url').hidden=false;dialog.querySelector('#install-copy-url')?.select();setStatus(t('manualCopy'));}}
- document.addEventListener('click',e=>{if(e.target.closest('[data-install-close]'))close();else if(e.target.closest('[data-install-prompt]'))prompt();else if(e.target.closest('[data-install-copy]'))copy();});
+ document.addEventListener('click',e=>{if(e.target.closest('[data-install-close]'))close();else if(e.target.closest('[data-install-prompt]'))requestInstall();else if(e.target.closest('[data-install-copy]'))copy();});
  dialog.addEventListener('cancel',e=>{e.preventDefault();close();});
  dialog.addEventListener('close',()=>document.dispatchEvent(new Event('arco:install-closed')));
  dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();});
- document.addEventListener('arco:install-change',()=>{refresh();if(dialog.open&&!prompting){render();dialog.querySelector('[data-install-prompt],[autofocus]')?.focus({preventScroll:true});}});
- document.addEventListener('arco:installed',()=>{close();refresh();A.notify(t('installed'));});
- document.addEventListener('arco:localized',refresh);mode.addEventListener?.('change',()=>{if(standalone())close();refresh();});minimal.addEventListener?.('change',refresh);
+ document.addEventListener('arco:install-change',()=>{
+  if(canPrompt()){nativeOutcome='ready';forceGuide=false;}
+  refresh();if(dialog.open&&!prompting){render();focusTitle();}signal();
+ });
+ document.addEventListener('arco:installed',()=>{nativeOutcome='installed';close();refresh();signal();A.notify(t('installed'));});
+ document.addEventListener('arco:localized',refresh);mode.addEventListener?.('change',()=>{if(standalone()){nativeOutcome='installed';close();}refresh();signal();});minimal.addEventListener?.('change',refresh);
  const settings=document.getElementById('settings');if(settings)new MutationObserver(refresh).observe(settings,{childList:true});
- window.addEventListener('pageshow',refresh);window.addEventListener('hashchange',()=>{if(dialog.open)close();});
+ window.addEventListener('pagehide',()=>{pageActive=false;});window.addEventListener('pageshow',()=>{pageActive=true;refresh();});window.addEventListener('hashchange',()=>{if(dialog.open)close();});
  async function register(){
-  if(!secure||!('serviceWorker' in navigator)){swStatus=local?'local-preview':'unsupported';return;}
+  if(!secure||!('serviceWorker' in navigator)){swStatus=local?'local-preview':'unsupported';signal();return;}
+  swStatus='registering';signal();
   try{
+   const root=new URL('./',document.baseURI);
    const manifest=new URL('./site.webmanifest',document.baseURI);
    const res=await fetch(manifest,{cache:'no-cache'});if(!res.ok)throw Error('manifest');const info=await res.json();
-   const root=new URL('./',document.baseURI);
+   if(info.arco_test_build)throw Error('A production manifest is required');
    if(new URL(info.id||info.start_url,manifest).href!==root.href||new URL(info.scope,manifest).href!==root.href)throw Error('wrong deployment');
    const r=await navigator.serviceWorker.register(new URL('./sw.js',document.baseURI),{scope:'./',updateViaCache:'none'});swStatus='registered';
-   // Never reload a running lesson or duel. New workers activate after old windows close.
    r.update().catch(()=>{});
-  }catch(_){swStatus='unavailable';}
+   if(r.installing)r.installing.addEventListener('statechange',signal);
+  }catch(error){swStatus='unavailable';}
+  signal();
  }
- refresh();if(document.readyState==='complete')register();else window.addEventListener('load',register,{once:true});
- return {open,close,refresh,available,snapshot:()=>({platform,ios,embedded,local,secure,standalone:standalone(),canPrompt:!!G.prompt,installed:G.installed,open:dialog.open,prompting,serviceWorker:swStatus})};
+ refresh();void register();
+ return {open,close,refresh,available,requestInstall,snapshot:()=>({platform,ios,embedded,local,secure,standalone:standalone(),canPrompt:canPrompt(),installed:G.installed,open:dialog.open,prompting,nativeOutcome,lastError,serviceWorker:swStatus})};
 })();
 </script>
 </body></html>
