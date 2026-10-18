@@ -1,6 +1,34 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant-TW" prefix="og: https://ogp.me/ns#">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCO｜樂理學習平台</title>
+<meta name="title" content="ARCO｜樂理學習平台">
+<meta name="description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
+<meta name="theme-color" content="#0B1020">
+<meta name="color-scheme" content="dark light">
+<!-- Static homepage metadata. Reuse the installed 512px logo; no separate share page. -->
+<meta property="og:title" content="ARCO｜樂理學習平台">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
+<meta property="og:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
+<meta property="og:url" content="https://chien930207-cyber.github.io/ARCO/">
+<meta property="og:site_name" content="ARCO">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image:secure_url" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="ARCO 原始金色 A Logo，深藍底色">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARCO｜樂理學習平台">
+<meta name="twitter:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
+<meta name="twitter:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
+<meta name="twitter:image:alt" content="ARCO 原始金色 A Logo，深藍底色">
+<link rel="canonical" href="https://chien930207-cyber.github.io/ARCO/">
+<link rel="image_src" href="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
+<meta name="arco-share-release" content="homepage-share-r1">
 <script id="arco-storage">'use strict';
 /** Production storage: original ARCO keys, never copies or merges preview progress.
  * Calls keep native failure semantics, so existing save/backup warnings still work.
@@ -14,31 +42,6 @@ window.ArcoStorage = Object.freeze({
  addEventListener(...args){window.addEventListener(...args);}
 });
 </script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0B1020"><meta name="description" content="100 級樂理練習。每課一個觀念，先聽再試，把知識帶進演奏。">
-<title>ARCO 正式版 | 樂理練習室｜把樂理帶進演奏</title>
-<meta name="color-scheme" content="dark light">
-<!-- ARCO social preview: reuse the existing 512px app logo; no additional image. -->
-<!-- Keep these absolute URLs in sync if the public website moves. -->
-<link rel="canonical" href="https://chien930207-cyber.github.io/ARCO/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ARCO">
-<meta property="og:title" content="ARCO｜樂理教學網站">
-<meta property="og:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
-<meta property="og:url" content="https://chien930207-cyber.github.io/ARCO/">
-<meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
-<meta property="og:image:secure_url" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:image:alt" content="ARCO 原始金色 A Logo，深藍底色">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARCO｜樂理教學網站">
-<meta name="twitter:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
-<meta name="twitter:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
-<meta name="twitter:image:alt" content="ARCO 原始金色 A Logo，深藍底色">
-<!-- End ARCO social preview. -->
 <link rel="icon" href="./favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/arco-gold-32-r3.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/arco-gold-180-r3.png">
@@ -1113,6 +1116,19 @@ window.addEventListener('appinstalled',()=>{window.ArcoInstallGate.prompt=null;w
   }
 }
 </style>
+
+<style id="arco-share-copy-fallback-css">
+#eg-feature-dialog .eg-rich-copy{text-align:left;line-height:1.9;overflow-wrap:anywhere;padding:14px;border:1px solid #526176;border-radius:8px;user-select:text;-webkit-user-select:text;font-size:14px}
+#eg-feature-dialog .eg-rich-copy a{color:#ecd0a0;text-decoration:underline;text-underline-offset:3px}
+#eg-feature-dialog .eg-share-check{border-top:1px solid #526176;margin-top:18px;padding-top:12px;text-align:left;font-size:13px}
+#eg-feature-dialog .eg-share-check summary{min-height:44px;cursor:pointer}
+#eg-feature-dialog .eg-logo-check{display:flex;align-items:center;gap:12px;margin:10px 0}
+#eg-feature-dialog .eg-logo-check img{width:64px;height:64px;object-fit:contain;border-radius:10px;flex-shrink:0}
+#eg-feature-dialog .eg-share-check code{display:block;overflow-wrap:anywhere;white-space:normal;font-size:12px;color:#b7c1cd}
+#eg-feature-dialog .eg-check-hint{font-size:13px;line-height:1.8;margin:14px 0 10px}
+#eg-feature-dialog .eg-check-scope{font-size:12px;line-height:1.8;color:#b7c1cd;margin:12px 0}
+#eg-feature-dialog .eg-share-check small{font-size:11px;color:#b7c1cd}
+</style>
 </head>
 <body>
 <!-- ARCO opening: self-contained, silent visuals. -->
@@ -1959,6 +1975,7 @@ window.ArcoPlacement = (() => {
   function welcome() {
     
     if(window.ArcoSplash?.active){if(!splashWelcomePending){splashWelcomePending=true;window.ArcoSplash.ready.then(()=>{splashWelcomePending=false;welcome();});}return;}
+    if(new URLSearchParams(location.search).get('sharecheck')==='1')return;
     const d = $('#welcome');
     if (!A.getState().placement && A.getState().placementRecord && location.hash!=='#duel') { start(); return; }
     if (A.hasStart() || ['#placement', '#duel'].includes(location.hash) || !d) return;
@@ -2441,7 +2458,7 @@ window.ArcoI18n = (()=>{
    sourceAttrs.set(el,records);
   });
   document.documentElement.lang=locale==='zh-TW'?'zh-Hant':locale;document.documentElement.dataset.locale=locale;
-  document.title=locale==='zh-TW'?'ARCO | \u6a02\u7406\u7df4\u7fd2\u5ba4':locale==='de'?'ARCO | Musiktheorie praktisch lernen':'ARCO | Music theory into practice';
+  document.title=locale==='zh-TW'?"ARCO\uff5c\u6a02\u7406\u5b78\u7fd2\u5e73\u53f0":locale==='de'?'ARCO | Lernplattform für Musiktheorie':'ARCO | Music Theory Learning Platform';
   const meta=document.querySelector('meta[name=description]');if(meta){meta.content=locale==='zh-TW'?"100 \u7d1a\u6a02\u7406\u7df4\u7fd2\u3002\u6bcf\u8ab2\u4e00\u500b\u89c0\u5ff5\uff0c\u5148\u807d\u518d\u8a66\uff0c\u628a\u77e5\u8b58\u5e36\u9032\u6f14\u594f\u3002":locale==='de'?'100 Lektionen Musiktheorie mit Hörbeispielen, praktischen Übungen und Duellen.':'100 music theory lessons with listening examples, practical exercises and duels.';}
   controls();applying=false;observer?.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder','alt']});
   document.dispatchEvent(new CustomEvent('arco:localized',{detail:{locale}}));
@@ -2642,8 +2659,16 @@ window.ArcoEngagement=(()=>{
     "busy": "\u8acb\u5148\u5b8c\u6210\u6216\u96e2\u958b\u76ee\u524d\u7684\u6e2c\u9a57\u3001\u5c0d\u6230\u6216\u8996\u7a97\u3002",
     "aiReady": "AI \u984c\u5eab\u5df2\u8a2d\u70ba\u7b2c {from}\u2013{to} \u7d1a\uff0c\u9078\u4e00\u4f4d\u5c0d\u624b\u5373\u53ef\u3002",
     "sharePreview": "\u9810\u89bd\u5206\u4eab\u6587\u5b57",
-    "shareLinkLabel": "\u99ac\u4e0a\u9ad4\u9a57ARCO",
-    "copiedRich": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u6587\u5b57\u8d85\u9023\u7d50\u3002"
+    "shareLinkLabel": "ARCO\uff5c\u6a02\u7406\u5b78\u7fd2\u5e73\u53f0",
+    "copiedRich": "\u5df2\u8907\u88fd\u5206\u4eab\u6587\u8207\u6587\u5b57\u8d85\u9023\u7d50\u3002",
+    "plainOnly": "\u5df2\u8907\u88fd\u6587\u6848\u8207\u7db2\u5740\uff1b\u6b64\u700f\u89bd\u5668\u672a\u4fdd\u7559\u6587\u5b57\u8d85\u9023\u7d50\u683c\u5f0f\u3002",
+    "manualRich": "\u8acb\u8907\u88fd\u4e0b\u65b9\u5167\u5bb9\uff0c\u4e26\u4f7f\u7528\u4fdd\u7559\u683c\u5f0f\u7684\u8cbc\u4e0a\u3002",
+    "checkTitle": "\u5206\u4eab\u6aa2\u67e5",
+    "checkLoading": "\u6b63\u5728\u8b80\u53d6\u65e2\u6709 Logo\u2026",
+    "checkOk": "\u65e2\u6709 Logo \u5df2\u6210\u529f\u8b80\u53d6",
+    "checkFail": "Logo \u7121\u6cd5\u8b80\u53d6\uff1b\u8acb\u6aa2\u67e5\u4e0b\u65b9\u8def\u5f91\u8207\u4e0a\u50b3\u72c0\u614b",
+    "checkHint": "\u8acb\u9ede\u300c\u8907\u88fd\u5206\u4eab\u6587\u5b57\u300d\u5f8c\u8cbc\u4e0a\uff1b\u4e0d\u8981\u5f9e\u7db2\u5740\u5217\u8907\u88fd\u3002",
+    "checkScope": "\u6b64\u8655\u6aa2\u67e5\u700f\u89bd\u5668\u80fd\u5426\u8b80\u53d6\u5716\u7247\uff1b\u4e0d\u4ee3\u8868 Teams\uff0fLINE \u7684\u9810\u89bd\u5df2\u66f4\u65b0\u3002"
   },
   "en": {
     "range": "Levels {from}\u2013{to}",
@@ -2664,8 +2689,16 @@ window.ArcoEngagement=(()=>{
     "busy": "Finish or leave the current quiz, duel or dialog first.",
     "aiReady": "AI questions are set to levels {from}\u2013{to}. Choose an opponent.",
     "sharePreview": "Preview share message",
-    "shareLinkLabel": "Try ARCO now",
-    "copiedRich": "Share message and text hyperlink copied."
+    "shareLinkLabel": "ARCO | Music Theory Learning Platform",
+    "copiedRich": "Share message and text hyperlink copied.",
+    "plainOnly": "Message and URL copied; this browser did not retain the named-link format.",
+    "manualRich": "Copy the content below and paste with formatting.",
+    "checkTitle": "Share check",
+    "checkLoading": "Loading the existing logo...",
+    "checkOk": "Existing logo loaded",
+    "checkFail": "Logo could not load. Check the path below and your deployment.",
+    "checkHint": "Use Copy share message, not the address bar.",
+    "checkScope": "This checks image loading in this browser, not whether Teams or LINE has refreshed its preview."
   },
   "de": {
     "range": "Stufen {from}\u2013{to}",
@@ -2686,10 +2719,19 @@ window.ArcoEngagement=(()=>{
     "busy": "Zuerst das aktuelle Quiz, Duell oder Dialogfenster beenden.",
     "aiReady": "Die KI-Fragen sind auf Stufen {from}\u2013{to} begrenzt. W\u00e4hle einen Gegner.",
     "sharePreview": "Nachricht vor dem Teilen ansehen",
-    "shareLinkLabel": "ARCO jetzt ausprobieren",
-    "copiedRich": "Nachricht und Textlink kopiert."
+    "shareLinkLabel": "ARCO | Lernplattform f\u00fcr Musiktheorie",
+    "copiedRich": "Nachricht und Textlink kopiert.",
+    "plainOnly": "Nachricht und URL kopiert; das Textlink-Format wurde nicht beibehalten.",
+    "manualRich": "Den folgenden Inhalt kopieren und mit Formatierung einfuegen.",
+    "checkTitle": "Teilen pruefen",
+    "checkLoading": "Vorhandenes Logo wird geladen...",
+    "checkOk": "Vorhandenes Logo geladen",
+    "checkFail": "Logo konnte nicht geladen werden. Pfad und Bereitstellung pruefen.",
+    "checkHint": "Nachricht kopieren verwenden, nicht die Adressleiste.",
+    "checkScope": "Dies prueft das Bild in diesem Browser, nicht die aktualisierte Vorschau in Teams oder LINE."
   }
 };
+ const CHECK_SHARE=new URLSearchParams(location.search).get('sharecheck')==='1';
  const locale=()=>window.ArcoI18n?.locale||'zh-TW';
  const tr=(key,vars={})=>{let s=(TEXT[locale()]||TEXT['zh-TW'])[key]||key;for(const [k,v] of Object.entries(vars))s=s.replaceAll('{'+k+'}',String(v));return s;};
  const esc=A.escape,icon=A.icon,range=end=>({from:end-9,to:end});
@@ -2779,7 +2821,7 @@ window.ArcoEngagement=(()=>{
  function saveSession(){updateDaily();}
  function validUrl(text){try{const u=new URL(text);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!u.hostname||/^(localhost|127\.|\[?::1\]?)/i.test(u.hostname))return '';u.hash='';u.search='';return u.href;}catch(_){return '';}}
  function defaultUrl(){if(!/^https?:$/.test(location.protocol))return '';return validUrl(new URL('./',location.href).href);}
- function publicUrl(){return defaultUrl()||validUrl(state.shareUrl);}
+ function publicUrl(){return validUrl(document.querySelector('link[rel=canonical]')?.href)||defaultUrl()||validUrl(state.shareUrl);}
  function busy(){const q=A.getQuiz(),r=window.ArcoDuel?.getRoom();return window.ArcoInstall?.snapshot().prompting||document.hidden||window.ArcoSplash?.active||!!document.querySelector('dialog[open]')||!!window.ArcoPlacement?.active()||!!(q&&!q.finished)||!!(r&&!['result','error'].includes(r.status))||document.body.dataset.sound==='playing';}
  function chapterName(end){const name=A.D.chapters[Math.floor((end-1)/10)]?.title||'';return window.ArcoI18n?.t(name)||name;}
  function staff(){return '<svg class="eg-staff" viewBox="0 0 520 140" aria-hidden="true">'+[0,12,24,36,48].map(n=>`<path d="M-10 ${58+n} C125 ${10+n},180 ${111+n},290 ${62+n} S445 ${25+n},540 ${67+n}"/>`).join('')+'</svg>';}
@@ -2798,8 +2840,20 @@ window.ArcoEngagement=(()=>{
    d.innerHTML=closeButton()+medal('share')+`<div class="eg-content"><h2 id="eg-title" class="eg-initial-focus" tabindex="-1" autofocus>${U.lines(tr('shareTitle'))}</h2><p id="eg-team-thanks" class="eg-team-thanks">${U.lines(U.t('copyTitle'))}</p><p id="eg-support" class="eg-support">${U.lines(U.t('copyLine1')+'\n'+U.t('copyLine2'))}</p>
    <div class="eg-url" id="eg-url-box" ${url?'hidden':''}><label for="eg-share-url">${esc(tr('url'))}</label><input type="url" id="eg-share-url" placeholder="https://..." value="${esc(url)}" autocomplete="url" spellcheck="false"></div>
    <div class="eg-actions"><button class="btn eg-primary" data-eg="share">${esc(tr('share'))}</button></div><div class="eg-share-secondary"><button class="text-button" data-eg="copy">${esc(tr('copy'))}</button><button class="text-button" data-eg="close">${esc(U.t('continue'))}</button></div>
-   <div class="eg-manual-copy" id="eg-share-preview" hidden><label class="sr-only" for="eg-share-message">${esc(tr('sharePreview'))}</label><textarea id="eg-share-message" rows="7" readonly spellcheck="false">${esc(shareMessage(url))}</textarea></div><p class="eg-status" id="eg-status" role="status"></p></div>`;
+   <div class="eg-manual-copy" id="eg-share-preview" hidden><label class="sr-only" for="eg-share-message">${esc(tr('sharePreview'))}</label><textarea id="eg-share-message" rows="7" readonly spellcheck="false">${esc(shareMessage(url))}</textarea></div><p class="eg-status" id="eg-status" role="status"></p>${CHECK_SHARE?checkMarkup(url):''}</div>`;
+    if(CHECK_SHARE)queueMicrotask(checkLogo);
   }
+ }
+ function checkMarkup(url){
+  const image=document.querySelector('meta[property="og:image"]')?.content||'';
+  return `<details class="eg-share-check" open><summary>${esc(tr('checkTitle'))}</summary><div class="eg-logo-check"><img id="eg-check-logo" src="${esc(image)}" width="64" height="64" alt="ARCO Logo"><p id="eg-check-result" role="status">${esc(tr('checkLoading'))}</p></div><code>${esc(image)}</code><p class="eg-check-hint">${esc(tr('checkHint'))}</p><div class="eg-rich-copy">${shareHtml(url)}</div><p class="eg-check-scope">${esc(tr('checkScope'))}</p><small>homepage-share-r1</small></details>`;
+ }
+ function checkLogo(){
+  const img=document.getElementById('eg-check-logo'),result=document.getElementById('eg-check-result');if(!img||!result)return;
+  const update=ok=>{if(!result.isConnected)return;result.textContent=tr(ok?'checkOk':'checkFail')+(ok?' ('+img.naturalWidth+' x '+img.naturalHeight+')':'');img.hidden=!ok;};
+  img.addEventListener('load',()=>update(true),{once:true});img.addEventListener('error',()=>update(false),{once:true});
+  if(img.complete)update(img.naturalWidth>0);
+  setTimeout(()=>{if(img.isConnected&&!img.complete)update(false);},12000);
  }
  function sound(){if(modal?.kind!=='milestone')return;document.dispatchEvent(new CustomEvent('arco:result',{detail:{kind:'chapter-clear',token:'milestone-'+Date.now()+'-'+Math.random().toString(16).slice(2)}}));}
  function open(data){if(busy())return false;modal={...data,route:location.hash};returnFocus=document.activeElement;shareBusy=false;renderModal();const d=document.getElementById(ID);d.showModal();d.querySelector('[autofocus]')?.focus({preventScroll:true});justOpenedAt=performance.now();if(data.kind==='milestone')sound();return true;}
@@ -2846,50 +2900,74 @@ window.ArcoEngagement=(()=>{
  function status(text){const e=document.getElementById('eg-status');if(e)e.textContent=text;}
  function getShareUrl(){const input=document.getElementById('eg-share-url'),box=document.getElementById('eg-url-box');const raw=box&&!box.hidden?input.value:publicUrl(),u=validUrl(raw);if(!u){box.hidden=false;input?.focus();status(tr('invalidUrl'));return '';}state.shareUrl=u;save();syncSharePreview(u);return u;}
  // Native sharing has no HTML/hyperlink-label field. Keep its real URL intact.
- function sharePayload(url){return {title:'ARCO',text:tr('shareText')+'\n\n'+tr('shareLinkLabel'),url};}
+ function sharePayload(url){return {title:tr('shareLinkLabel'),text:tr('shareText')+'\n\n'+tr('shareLinkLabel'),url};}
  function shareMessage(url){const data=sharePayload(url);return data.text+(data.url?'\n'+data.url:'');}
  // One clipboard item, two representations: a named link in rich-text editors,
  // and a usable URL in apps that only accept plain text. Never copy raw HTML as text.
  function shareHtml(url){
   const safe=validUrl(url);if(!safe)return '';
-  return '<div>'+esc(tr('shareText')).replace(/\n/g,'<br>')+'<br><br><a href="'+esc(safe)+'">'+esc(tr('shareLinkLabel'))+'</a></div>';
+  return '<div>'+esc(tr('shareText')).replace(/\n/g,'<br>')+'<br><br><a href="'+esc(safe)+'" style="text-decoration:underline">'+esc(tr('shareLinkLabel'))+'</a></div>';
  }
- function syncSharePreview(url){const input=document.getElementById('eg-share-message');if(input)input.value=shareMessage(url);}
+ function syncSharePreview(url){const input=document.getElementById('eg-share-message');if(input)input.value=shareMessage(url);const box=document.getElementById('eg-share-rich-copy');if(box)box.innerHTML=shareHtml(url);}
+ // Scoped compatibility fallback, never a permanent global copy handler.
+ function legacyRichCopy(html,plain,host){
+  if(typeof document.execCommand!=='function')return false;
+  const prior=document.activeElement,sel=window.getSelection(),ranges=[];
+  if(sel)for(let i=0;i<sel.rangeCount;i++)ranges.push(sel.getRangeAt(i).cloneRange());
+  const box=document.createElement('div');box.contentEditable='true';box.tabIndex=-1;
+  box.setAttribute('aria-hidden','true');
+  box.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
+  box.innerHTML=html;let richWritten=false,ok=false;
+  const handle=e=>{if(!e.clipboardData)return;try{e.clipboardData.setData('text/html',html);e.clipboardData.setData('text/plain',plain);e.preventDefault();richWritten=true;}catch(_){}};
+  try{
+   host.append(box);box.focus({preventScroll:true});const range=document.createRange();range.selectNodeContents(box);
+   sel?.removeAllRanges();sel?.addRange(range);box.addEventListener('copy',handle);
+   ok=document.execCommand('copy')===true&&richWritten;
+  }catch(_){}finally{
+   box.removeEventListener('copy',handle);box.remove();
+   try{sel?.removeAllRanges();for(const range of ranges)if(range.commonAncestorContainer.isConnected)sel?.addRange(range);}catch(_){}
+   if(prior?.isConnected)prior.focus({preventScroll:true});
+  }
+  return ok;
+ }
+ async function writeShareClipboard(html,plain,host,current){
+  if(window.isSecureContext&&navigator.clipboard?.write&&typeof window.ClipboardItem==='function'){
+   try{
+    const Item=window.ClipboardItem;
+    if(typeof Item.supports!=='function'||Item.supports('text/html')){
+     // Start in the trusted click; never await network/image/permissions first.
+     await navigator.clipboard.write([new Item({
+      'text/html':new Blob([html],{type:'text/html'}),
+      'text/plain':new Blob([plain],{type:'text/plain'})
+     })]);return 'rich';
+    }
+   }catch(_){}
+  }
+  if(!current())return 'cancelled';
+  if(legacyRichCopy(html,plain,host))return 'rich';
+  if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(plain);return 'plain';}catch(_){}}
+  return 'manual';
+ }
+ function showRichCopy(html,select){
+  const preview=document.getElementById('eg-share-preview');if(!preview)return;
+  preview.hidden=false;let box=document.getElementById('eg-share-rich-copy');
+  if(!box){box=document.createElement('div');box.id='eg-share-rich-copy';box.tabIndex=0;box.className='eg-rich-copy';preview.prepend(box);}
+  box.setAttribute('aria-label',tr('sharePreview'));box.innerHTML=html;
+  const input=document.getElementById('eg-share-message');if(input)input.hidden=true;
+  if(select){box.focus({preventScroll:true});const range=document.createRange();range.selectNodeContents(box);const sel=window.getSelection();sel?.removeAllRanges();sel?.addRange(range);}
+ }
  let copyBusy=false;
  async function copyShare(url,message=shareMessage(url)){
   const owner=modal;if(!validUrl(url)||owner?.kind!=='share'||copyBusy)return;
-  const rich=shareHtml(url),button=document.querySelector('[data-eg="copy"]');
+  const html=shareHtml(url),button=document.querySelector('[data-eg="copy"]'),current=()=>modal===owner;
   copyBusy=true;if(button)button.disabled=true;
-  const currentOwner=()=>modal===owner;
   try{
-   // Construct and start the write during the user's click, before any awaits.
-   if(window.isSecureContext&&navigator.clipboard?.write&&typeof window.ClipboardItem==='function'){
-    const Item=window.ClipboardItem;
-    try{
-     if(typeof Item.supports!=='function'||Item.supports('text/html')){
-      await navigator.clipboard.write([new Item({
-       'text/html':new Blob([rich],{type:'text/html'}),
-       'text/plain':new Blob([message],{type:'text/plain'})
-      })]);
-      if(currentOwner())status(tr('copiedRich'));
-      return;
-     }
-    }catch(_){/* Try plain text, or show the existing manual-copy field. */}
-   }
-   if(!currentOwner())return;
-   if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');
-   await navigator.clipboard.writeText(message);
-   if(currentOwner())status(tr('copied'));
-  }catch(_){
-   if(!currentOwner())return;
-   const preview=document.getElementById('eg-share-preview'),input=document.getElementById('eg-share-message');
-   if(preview)preview.hidden=false;
-   if(input){input.value=message;input.focus();input.select();input.setSelectionRange(0,message.length);}
-   status(tr('manual'));
-  }finally{
-   copyBusy=false;
-   if(button?.isConnected)button.disabled=false;
-  }
+   const outcome=await writeShareClipboard(html,message,document.getElementById(ID),current);
+   if(!current())return;
+   if(outcome==='rich'){status(tr('copiedRich'));return;}
+   if(outcome==='plain'){showRichCopy(html,false);status(tr('plainOnly'));return;}
+   if(outcome==='manual'){showRichCopy(html,true);status(tr('manualRich'));}
+  }finally{copyBusy=false;if(button?.isConnected)button.disabled=false;}
  }
  async function share(){
   if(shareBusy||modal?.kind!=='share')return;
@@ -2937,7 +3015,7 @@ window.ArcoEngagement=(()=>{
   last=performance.now();lastWall=Date.now();cooldown=performance.now()+COOLDOWN;saveSession();
  });
  setInterval(tick,1000);save();saveSession();
- return {onCourseResult,snapshot:()=>{
+ return {onCourseResult,openShare:()=>open({kind:'share'}),snapshot:()=>{
   const daily=readDaily(),next=!daily.installShown&&!daily.installSkipped?'install':!daily.shareShown?'share':null;
   return {seen:[...state.seen],pending:state.pending.map(x=>({...x})),dailyDate:daily.date,
    foregroundMs:daily.elapsed,shareShown:daily.shareShown,installShown:daily.installShown,installSkipped:daily.installSkipped,
@@ -3074,6 +3152,18 @@ window.ArcoInstall=(()=>{
  }
  refresh();void register();
  return {open,close,refresh,available,requestInstall,snapshot:()=>({platform,ios,embedded,local,secure,standalone:standalone(),canPrompt:canPrompt(),installed:G.installed,open:dialog.open,prompting,nativeOutcome,lastError,serviceWorker:swStatus})};
+})();
+</script>
+
+<script id="arco-homepage-share-check">'use strict';
+(()=>{
+ if(new URLSearchParams(location.search).get('sharecheck')!=='1')return;
+ let attempts=0;
+ const timer=setInterval(()=>{
+  if(window.ArcoEngagement?.openShare()){clearInterval(timer);return;}
+  if(++attempts>=240)clearInterval(timer);
+ },500);
+ window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
 })();
 </script>
 </body></html>
