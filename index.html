@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
 <meta property="og:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
-<meta property="og:url" content="https://chien930207-cyber.github.io/ARCO/">
+<meta property="og:url" content="https://chien930207-cyber.github.io/ARCO/index.html?share=platform-logo-20261018">
 <meta property="og:site_name" content="ARCO">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image:secure_url" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
@@ -26,9 +26,32 @@
 <meta name="twitter:description" content="100 級循序漸進的課程，搭配圖解與闖關練習，帶你一步步享受樂理的世界。零基礎也能開始，一起來試試！">
 <meta name="twitter:image" content="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
 <meta name="twitter:image:alt" content="ARCO 原始金色 A Logo，深藍底色">
-<link rel="canonical" href="https://chien930207-cyber.github.io/ARCO/">
+<link rel="canonical" href="https://chien930207-cyber.github.io/ARCO/index.html?share=platform-logo-20261018">
 <link rel="image_src" href="https://chien930207-cyber.github.io/ARCO/icons/arco-gold-512-r3.png">
-<meta name="arco-share-release" content="homepage-share-r1">
+<meta name="arco-share-release" content="homepage-share-r3-compared">
+<script id="arco-public-address">'use strict';
+/* Compared with TEMPOLIVE v2.4.7: one public share address in the URL bar,
+ * Open Graph metadata and clipboard. No new page, image, redirect or storage key.
+ * Other applications may retain their own previews; this does not purge them.
+ */
+(()=>{
+ const PUBLIC_ORIGIN='https://chien930207-cyber.github.io';
+ const PUBLIC_PATH='/ARCO/index.html';
+ const SHARE_VERSION='platform-logo-20261018';
+ function normalizePublicAddress(){
+  try{
+   if(window.top!==window.self)return;
+   const url=new URL(location.href);
+   if(url.origin!==PUBLIC_ORIGIN||!['/ARCO/','/ARCO/index.html'].includes(url.pathname))return;
+   url.pathname=PUBLIC_PATH;
+   url.searchParams.set('share',SHARE_VERSION);
+   if(url.href!==location.href)history.replaceState(history.state,'',url.href);
+  }catch(_){/* Restricted History API must never interrupt learning. */}
+ }
+ normalizePublicAddress();
+ window.addEventListener('pageshow',normalizePublicAddress);
+})();
+</script>
 <script id="arco-storage">'use strict';
 /** Production storage: original ARCO keys, never copies or merges preview progress.
  * Calls keep native failure semantics, so existing save/backup warnings still work.
@@ -2819,7 +2842,18 @@ window.ArcoEngagement=(()=>{
   });
  }
  function saveSession(){updateDaily();}
- function validUrl(text){try{const u=new URL(text);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!u.hostname||/^(localhost|127\.|\[?::1\]?)/i.test(u.hostname))return '';u.hash='';u.search='';return u.href;}catch(_){return '';}}
+ function validUrl(text){
+  try{
+   const u=new URL(text);
+   if(!['http:','https:'].includes(u.protocol)||u.username||u.password||!u.hostname||/^(localhost|127\.|\[?::1\]?)/i.test(u.hostname))return '';
+   // Retain only our public preview revision, never room IDs or check parameters.
+   const revision=u.searchParams.get('share');
+   const publicRevision=u.origin==='https://chien930207-cyber.github.io'&&u.pathname==='/ARCO/index.html'&&revision==='platform-logo-20261018';
+   u.hash='';u.search='';
+   if(publicRevision)u.searchParams.set('share',revision);
+   return u.href;
+  }catch(_){return '';}
+ }
  function defaultUrl(){if(!/^https?:$/.test(location.protocol))return '';return validUrl(new URL('./',location.href).href);}
  function publicUrl(){return validUrl(document.querySelector('link[rel=canonical]')?.href)||defaultUrl()||validUrl(state.shareUrl);}
  function busy(){const q=A.getQuiz(),r=window.ArcoDuel?.getRoom();return window.ArcoInstall?.snapshot().prompting||document.hidden||window.ArcoSplash?.active||!!document.querySelector('dialog[open]')||!!window.ArcoPlacement?.active()||!!(q&&!q.finished)||!!(r&&!['result','error'].includes(r.status))||document.body.dataset.sound==='playing';}
@@ -2846,7 +2880,7 @@ window.ArcoEngagement=(()=>{
  }
  function checkMarkup(url){
   const image=document.querySelector('meta[property="og:image"]')?.content||'';
-  return `<details class="eg-share-check" open><summary>${esc(tr('checkTitle'))}</summary><div class="eg-logo-check"><img id="eg-check-logo" src="${esc(image)}" width="64" height="64" alt="ARCO Logo"><p id="eg-check-result" role="status">${esc(tr('checkLoading'))}</p></div><code>${esc(image)}</code><p class="eg-check-hint">${esc(tr('checkHint'))}</p><div class="eg-rich-copy">${shareHtml(url)}</div><p class="eg-check-scope">${esc(tr('checkScope'))}</p><small>homepage-share-r1</small></details>`;
+  return `<details class="eg-share-check" open><summary>${esc(tr('checkTitle'))}</summary><div class="eg-logo-check"><img id="eg-check-logo" src="${esc(image)}" width="64" height="64" alt="ARCO Logo"><p id="eg-check-result" role="status">${esc(tr('checkLoading'))}</p></div><code>${esc(image)}</code><p class="eg-check-hint">${esc(tr('checkHint'))}</p><div class="eg-rich-copy">${shareHtml(url)}</div><p class="eg-check-scope">${esc(tr('checkScope'))}</p><small>homepage-share-r3-compared</small></details>`;
  }
  function checkLogo(){
   const img=document.getElementById('eg-check-logo'),result=document.getElementById('eg-check-result');if(!img||!result)return;
